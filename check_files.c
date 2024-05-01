@@ -57,6 +57,7 @@ int	hd(t_list *list, int *fd)
 		return (0);
 	}
 	write(*fd, line, ft_strlen(line));
+	write(*fd, "\n", 1);
 	free(line);
 	free(copy_line);
 	return (1);
