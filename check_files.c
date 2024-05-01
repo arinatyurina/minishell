@@ -92,7 +92,7 @@ void	check_out_files(t_list *list, t_data *vars, char ***env)
 	copy = list->outf;
 	vars->out_file = -2;
 	out_n = ft_outfsize(list->outf);
-	//printf("list->inf->file (limiter) = %s", list->inf->file);
+	//rintf("list->inf->file (limiter) = %s", list->inf->file);
 	while (out_n != 0 && list->outf != NULL)
 	{
 		if (list->outf->flag == 'a')

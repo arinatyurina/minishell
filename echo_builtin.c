@@ -17,7 +17,7 @@ int	ft_echo(char **argv)
 	int	i;
 
 	i = 0;
-	if (argv[0] != NULL && ft_strcmp(argv[0], "-n") == 0)
+	if (argv != NULL && argv[0] != NULL && ft_strcmp(argv[0], "-n") == 0)
 	{
 		while (argv[i + 1] != NULL)
 		{
@@ -29,7 +29,7 @@ int	ft_echo(char **argv)
 	}
 	else
 	{
-		while (argv[i] != NULL)
+		while (argv != NULL && argv[i] != NULL)
 		{
 			ft_putstr_fd(argv[i], STDOUT_FILENO);
 			if (argv[i + 1] != NULL)

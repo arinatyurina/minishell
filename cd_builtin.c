@@ -82,17 +82,17 @@ int	cd_with_argv(char **argv, char **env)
 
 int	ft_cd(char **argv, char **env)
 {
-	if (argv[0] != NULL && argv[1] != NULL)
+	if (argv != NULL && argv[0] != NULL && argv[1] != NULL)
 	{
 		ft_putstr_fd("minishell: cd: too many arguments\n", STDERR_FILENO);
 		return (1);
 	}
-	if (!argv[0])
+	if (argv != NULL && !argv[0])
 	{
 		if (cd_home(env) == 1)
 			return (1);
 	}
-	else if (argv[0])
+	else if (argv != NULL && argv[0])
 		cd_with_argv(argv, env);
 	return (0);
 }

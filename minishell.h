@@ -37,6 +37,8 @@ typedef struct s_data
 	int		id;
 	char	**paths;
 	char	*path;
+	int		stdout_og;
+	int		stdin_og;
 }		t_data;
 
 typedef enum e_builtins {

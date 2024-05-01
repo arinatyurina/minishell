@@ -17,7 +17,7 @@ int	ft_env(char **env, char **argv)
 	int	i;
 
 	i = 0;
-	if (argv[0] != NULL)
+	if (argv != NULL && argv[0] != NULL)
 	{
 		ft_putstr_fd("env: ’", STDERR_FILENO);
 		ft_putstr_fd(argv[0], STDERR_FILENO);

@@ -58,6 +58,12 @@ void	case_with_pipes(t_list *list, t_data *vars, char **env)
 	free_pipes(vars);
 }
 
+void	redirect_back(t_data *vars)
+{
+	dup2(vars->stdin_og, STDIN_FILENO);
+	dup2(vars->stdout_og, STDOUT_FILENO);
+}
+
 int	execute(t_list *list, char ***env)
 {
 	t_data	vars;
@@ -67,10 +73,13 @@ int	execute(t_list *list, char ***env)
 	vars.lists_nbr = ft_lstsize(list);
 	if (one_cmd_builtin(list->cmd, &vars) == 1)
 	{
+		vars.stdin_og = dup(STDIN_FILENO);
+		vars.stdout_og = dup(STDOUT_FILENO);
 		check_in_files(list, &vars, env);
 		check_redirections(&vars, list);
 		redirect_stream(vars.in_file, vars.out_file);
 		wstatus = builtin(list->cmd, list, env);
+		redirect_back(&vars);
 	}
 	else
 	{
@@ -80,10 +89,11 @@ int	execute(t_list *list, char ***env)
 			(wait(NULL));
 		if (WIFEXITED(wstatus))
 		{
-			printf("exit status: %d\n", WEXITSTATUS(wstatus));
+			//printf("exit status: %d\n", WEXITSTATUS(wstatus));
 			wstatus = WEXITSTATUS(wstatus);
 		}
 	}
+	//printf("exit status = %d\n", wstatus);
 	return (wstatus);
 }
 
