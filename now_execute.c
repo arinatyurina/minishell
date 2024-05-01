@@ -55,11 +55,11 @@ char	**ft_executable(char *cmd, char **argv)
 	i = 1;
 	j = 0;
 	len = 0;
-	while (argv[len] != NULL)
+	while (argv != NULL && argv[len] != NULL)
 		len++;
 	exec = (char **)ft_malloc((len + 2) * sizeof(char *));
 	exec[0] = ft_strdup_ex(cmd);
-	while (argv[j] != NULL)
+	while (argv != NULL && argv[j] != NULL)
 	{
 		exec[i] = ft_strdup_ex(argv[j]);
 		i++;

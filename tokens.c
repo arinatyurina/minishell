@@ -32,7 +32,7 @@ char	**get_tokens(char *user_input)
 		printf("Odd number of  quotes\n");
 		return (NULL);
 	}
-	printf("%s\n", user_input);
+	//printf("%s\n", user_input);
 	tokens = ft_split(user_input);
 	return (tokens);
 }
