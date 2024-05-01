@@ -42,14 +42,7 @@ int	hd(t_list *list, int *fd)
 	if (!line)
 		exit(1);
 	i = ft_strchr_gnl(line, '\n');
-	if (i != -1)
-	{
-		copy_line = ft_strndup(line, i);
-	}
-	else
-	{
-		copy_line = ft_strdup_ex(line);
-	}
+	copy_line = ft_strdup_ex(line);
 	if (!ft_strcmp(copy_line, list->inf->file))
 	{
 		free(line);
