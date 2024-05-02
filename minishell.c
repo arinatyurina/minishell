@@ -120,11 +120,17 @@ int	main(int argc, char **argv, char **env)
 	t_list	*list;
 	int		exit_status;
 
+	init_signals();
 	env_copy = duplicate_env(env);
 	exit_status = 0;
 	while (true)
 	{
 		user_input = readline("minishell:~$ ");
+		if (user_input == NULL)
+		{
+			ft_putstr_fd("exit\n", STDOUT_FILENO);
+			break;
+		}
 		add_history(user_input);
 		list = input(user_input, env_copy);
 		//output_list(list);

@@ -15,9 +15,12 @@ NAME := minishell
 SRC := tokens.c token_utils.c token_utils2.c \
 		token_utils3.c strings.c minishell.c \
 		init_list.c init_inf.c init_outf.c\
-		parse.c built_in.c check_cmd_access.c echo_builtin.c execution.c export_builtin.c \
-		now_execute.c pwd_builtin.c unset_builtin.c utils_more.c  \
-		cd_builtin.c check_files.c env_builtin.c exit_builtin.c pipes_managing.c utils.c
+		parse.c built_in.c check_cmd_access.c \
+		echo_builtin.c execution.c export_builtin.c \
+		now_execute.c pwd_builtin.c unset_builtin.c \
+		utils_more.c cd_builtin.c check_files.c \
+		env_builtin.c exit_builtin.c pipes_managing.c utils.c \
+		handle_signals.c
 OBJ := $(SRC:%.c=%.o)
 
 CC := cc -g

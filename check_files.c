@@ -30,8 +30,6 @@ void	heredoc_err(t_data *vars, t_list *list)
 	exit(1);
 }
 
-#include <readline/readline.h>
-
 int	hd(t_list *list, int *fd)
 {
 	char	*line;
@@ -97,7 +95,7 @@ void	check_out_files(t_list *list, t_data *vars, char ***env)
 					O_WRONLY | O_TRUNC | O_CREAT, 0644);
 		if (vars->out_file == -1)
 		{
-			perror(list->outf->file); // no such file or directory or permission denied message. TEST!!!
+			perror(list->outf->file);
 			// FREE all malloced in structure before execution!!!!!!!
 			//free_all_main(list, env);
 			free_pipes(vars);

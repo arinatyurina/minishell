@@ -24,6 +24,11 @@
 # include <errno.h>
 # include <sys/stat.h>
 # include <fcntl.h>
+#include <signal.h>
+# include <sysexits.h>
+#include <stdbool.h>
+#include <sys/ioctl.h>
+#include <asm/termbits.h> 
 
 typedef struct s_data
 {
@@ -40,16 +45,6 @@ typedef struct s_data
 	int		stdout_og;
 	int		stdin_og;
 }		t_data;
-
-typedef enum e_builtins {
-	ECHO,
-	CD,
-	PWD,
-	EXPORT,
-	UNSET,
-	ENV,
-	EXIT
-}	t_builtins;
 
 typedef struct s_inf
 {
@@ -76,6 +71,13 @@ typedef struct s_list
 	t_outf			*outf;
 	struct s_list	*next;
 }		t_list;
+
+typedef struct sigaction t_sigaction;
+
+//signals:
+void signals_to_default(void);
+void	sigint_handler(int sig);
+void	init_signals(void);
 
 // temporary!!!! for freeinf things allocated in main
 void	free_all_main(t_list *list, char ***env);

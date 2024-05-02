@@ -24,6 +24,7 @@ void	forking(t_list *list, t_data *vars, char ***env)
 			ft_putstr_fd("Error while forking", 2);
 		if (vars->id == 0)
 		{
+			signals_to_default();
 			check_in_files(list, vars, env);
 			check_redirections(vars, list);
 			redirect_stream(vars->in_file, vars->out_file);
@@ -39,7 +40,8 @@ int	one_cmd_builtin(char *cmd, t_data *vars)
 {
 	if (vars->lists_nbr == 1)
 	{
-		if (((ft_strcmp(cmd, "echo")) == 0) || ((ft_strcmp(cmd, "cd")) == 0)
+		if (((ft_strcmp(cmd, "echo")) == 0)
+			|| ((ft_strcmp(cmd, "cd")) == 0)
 			|| ((ft_strcmp(cmd, "pwd")) == 0)
 			|| ((ft_strcmp(cmd, "export")) == 0)
 			|| ((ft_strcmp(cmd, "unset")) == 0)
