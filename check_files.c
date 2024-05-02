@@ -36,7 +36,14 @@ int	hd(t_list *list, int *fd)
 	char	*copy_line;
 	int		i;
 
-	line = readline("> ");  // Здесь изменено
+	line = readline("> ");
+	if (line == NULL)
+	{
+		ft_putstr_fd("minishell: warning: here-document delimited by end-of-file (wanted `", 1);
+		ft_putstr_fd(list->inf->file, 1);
+		ft_putstr_fd("')\n", STDOUT_FILENO);
+		return (0);
+	}
 	if (!line)
 		exit(1);
 	i = ft_strchr_gnl(line, '\n');
