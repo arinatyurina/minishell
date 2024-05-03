@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 18:30:52 by rtavabil          #+#    #+#             */
-/*   Updated: 2024/04/29 17:13:53 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/03 16:43:54 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,17 +99,7 @@ t_list	*input(char *user_input, char **env_copy)
 
 	list = NULL;
 	tokens = get_tokens(user_input);
-	// if (tokens)
-	// {
-	// 	while (*tokens)
-	// 	{
-	// 		printf("%s\n", *tokens);
-	// 		tokens++;
-	// 	}
-	// }
-	//printf("im in input\n");
 	list = parse(user_input, tokens, env_copy);
-	//printf("in input after parse() call\n");
 	return(list);
 }
 

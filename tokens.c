@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 15:39:12 by rtavabil          #+#    #+#             */
-/*   Updated: 2024/04/16 18:46:38 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/03 16:32:41 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,69 +36,3 @@ char	**get_tokens(char *user_input)
 	tokens = ft_split(user_input);
 	return (tokens);
 }
-
-// int	main(int argc, char **argv, char **envp)
-// {
-// 	char **table;
-// 	char *str = {"|<infile<<<xxx   \t | ||  echo \" hello | world  \"'PATH\'here<<"};
-// 	char *str_odd = {" \" check all \" \'  whyy\' meow new"};
-
-// 	char	*user = readline("enter>");
-// 	printf("%s\n", user);
-// 	if (count_quotes(user))
-// 	{
-// 		printf("Odd number of  quotes\n");
-// 		return (1);
-// 	}
-// 	printf("_________________________________\n");
-// 	table = ft_split(user);
-// 	while (*table)
-// 	{
-// 		printf("%s\n", *table);
-// 		table++;
-// 	}
-// }
-//  " check all "
-//  0123456789012
-// if (s[i] == '\"')
-// {
-// 	start = i;
-// 	i = ft_strchrin(&s[i + 1], '\"');
-// 	if (i > 0)
-// 		*res++ = ft_substr(s, start, i + 2);
-// 	i = start + i + 2;
-// }
-// else if (s[i] == '\'')
-// {
-// 	start = i;
-// 	i = ft_strchrin(&s[i + 1], '\'');
-// 	if (i > 0)
-// 		*res++ = ft_substr(s, start, i + 2);
-// 	i = start + i + 2;
-// }
-		// else if (s[i] == '>')
-// {
-// 	if (s[i + 1] == '>')
-// 	{
-// 		*res++ = ft_substr(s, i, 2);
-// 		i = i + 2;
-// 	}
-// 	else 
-// 	{
-// 		*res++ = ft_substr(s, i, 1);
-// 		i = i + 1;
-// 	}
-// }
-// else if (s[i] == '<')
-// {
-// 	if (s[i + 1] == '<')
-// 	{
-// 		*res++ = ft_substr(s, i, 2);
-// 		i = i + 2;
-// 	}
-// 	else 
-// 	{
-// 		*res++ = ft_substr(s, i, 1);
-// 		i = i + 1;
-// 	}
-// }

@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 16:54:27 by rtavabil          #+#    #+#             */
-/*   Updated: 2024/04/26 13:11:50 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/03 16:32:52 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,12 +140,3 @@ char	**split_process(char *s, char **res)
 	}
 	return (res);
 }
-
-// if (s[i] == '\'' || s[i] == '\"')
-// 	res = split_quotes(s, &i, res);
-// else if (s[i] == '>' || s[i] == '<')
-// 	res = split_red(s, &i, res);
-// else if (s[i] == '|')
-// 	res = split_pipe(s, &i, res);
-// else if (s[i] == '$')
-// 	res = split_exp(s, &i, res);

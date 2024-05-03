@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 18:57:12 by rtavabil          #+#    #+#             */
-/*   Updated: 2024/04/29 18:00:19 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/03 16:48:53 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,7 @@ void	add_next_inf(t_list **list, char *file, char *flag)
 {
 	char	inf_flag;
 	t_inf	*infile;
-	//todo
-	//init inf
-	//set value and flag
-	//add last list->inf
+
 	inf_flag = 'c';
 	if (!ft_strcmp(flag, "<<"))
 		inf_flag = 'h';
@@ -48,10 +45,7 @@ void	add_next_outf(t_list **list, char *file, char *flag)
 {
 	char	out_flag;
 	t_outf	*outfile;
-	//todo
-	//init outf
-	//set value and flag
-	//add last list->outf
+
 	out_flag = 'c';
 	if (!ft_strcmp(flag, ">>"))
 		out_flag = 'a';
@@ -61,8 +55,6 @@ void	add_next_outf(t_list **list, char *file, char *flag)
 
 void	parse_red(char **tokens, t_list **list)
 {
-	//printf("entered parse_red");
-	//printf(" check list %s\n", *(*list)->env);
 	if (!ft_strcmp(*tokens, "<") || !ft_strcmp(*tokens, "<<"))
 	{
 		if (!is_special_str(*(tokens + 1)) && *tokens)
@@ -127,84 +119,6 @@ char	*parse_no_q()
 	//if no space concatenate
 	//return as it is?
 	return (NULL);
-}
-
-int	is_alphanum(char c)
-{
-	if (((c >= 48) && (c <= 57)) || ((c >=97 && c <= 122)) \
-		|| (c == '_') || ((c >= 65) && (c <= 90)))
-		return (1);
-	return (0);
-}
-
-char	*find_env_var(char	*key, char **env)
-{
-	char	*env_var;
-
-	env_var = NULL;
-	if (env != NULL)
-	{
-		while (*env && env_var == NULL)
-		{
-			if (!ft_strncmp(*env, key, ft_strlen(key)))
-				env_var = *env + ft_strlen(key) + 1;
-			env++;
-		}
-	}
-	return(env_var);
-}
-
-char	*parse_double(char *token, char **env)
-{
-	int		i;
-	int		start;
-	char	*parsed;
-	char	*env_key;
-	int		len;
-	char	*env_var;
-
-	start = -1;
-	env_key = NULL;
-	env_var = NULL;
-	if (ft_strchrin(token, '$') != -1)
-	{
-		printf("entered parse_double() if\n");
-		start = ft_strchrin(token, '$') + 1;
-		i = start + 1;
-		while (token[i])
-		{
-			if (!is_alphanum(token[i]))
-				break;
-			i++;
-		}
-		if (i - start > 1)
-		{
-			printf("entered parse_double() if() if()\n");
-			env_key = ft_substr(token, start, i - start);
-			printf("env_char is %s\n", env_key);
-		}
-		env_var = find_env_var(env_key, env);
-		printf("env_var is %s\n", env_var);
-		if (env_var == NULL)
-			return ("\0");
-
-	}
-	// if (env_char)
-	// {
-	// 	len = ft_strlen(token) - 3 + ft_strlen(env_char);
-	// 	parsed = (char *)malloc((len + 1) * sizeof(char));
-	// 	if (!parsed)
-	// 		return (NULL);
-	// 	env_var = 
-	// }
-	
-	//remove quotes
-	//-assign new memory
-	//-substr from 1 to len - 1
-	//free old one
-	//check for $ sign
-	//if yes expand 
-	return (parsed);
 }
 
 char	*parse_single()
