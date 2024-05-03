@@ -131,6 +131,8 @@ int	main(int argc, char **argv, char **env)
 			ft_putstr_fd("exit\n", STDOUT_FILENO);
 			break;
 		}
+		if (!ft_strcmp(user_input, ""))
+			continue;
 		add_history(user_input);
 		list = input(user_input, env_copy);
 		//output_list(list);

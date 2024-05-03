@@ -26,6 +26,7 @@ t_list	*init_list(char **env_copy)
 	list->inf = NULL;
 	list->outf = NULL;
 	list->next = NULL;
+	list->hd_nbr = 0;
 	return (list);
 }
 

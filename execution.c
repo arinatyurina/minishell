@@ -73,6 +73,7 @@ int	execute(t_list *list, char ***env)
 
 	wstatus = 0;
 	vars.lists_nbr = ft_lstsize(list);
+	handle_heredoc(list, &vars);
 	if (one_cmd_builtin(list->cmd, &vars) == 1)
 	{
 		vars.stdin_og = dup(STDIN_FILENO);
@@ -90,11 +91,9 @@ int	execute(t_list *list, char ***env)
 		while (vars.lists_nbr-- != 1)
 			(wait(NULL));
 		if (WIFEXITED(wstatus))
-		{
-			//printf("exit status: %d\n", WEXITSTATUS(wstatus));
 			wstatus = WEXITSTATUS(wstatus);
-		}
 	}
+	unlink_heredocs(list, &vars);
 	//printf("exit status = %d\n", wstatus);
 	return (wstatus);
 }

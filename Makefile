@@ -20,7 +20,7 @@ SRC := tokens.c token_utils.c token_utils2.c \
 		now_execute.c pwd_builtin.c unset_builtin.c \
 		utils_more.c cd_builtin.c check_files.c \
 		env_builtin.c exit_builtin.c pipes_managing.c utils.c \
-		handle_signals.c
+		handle_signals.c handle_heredoc.c
 OBJ := $(SRC:%.c=%.o)
 
 CC := cc -g

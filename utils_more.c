@@ -73,7 +73,7 @@ static int	ft_count_w(char const *s, char c)
 	return (words);
 }
 
-char	*ft_substr_split(char const *s, unsigned int start, size_t len)
+char	*ft_substr_split(char *s, unsigned int start, size_t len)
 {
 	size_t	i;
 	char	*sub;
@@ -102,7 +102,7 @@ char	*ft_substr_split(char const *s, unsigned int start, size_t len)
 	return (sub);
 }
 
-char	**ft_split_ex(char const *s, char c)
+char	**ft_split_ex(char *s, char c)
 {
 	int		i;
 	int		start;
@@ -131,7 +131,7 @@ char	**ft_split_ex(char const *s, char c)
 	return (res - ft_count_w(s, c));
 }
 
-char	*ft_strjoin_three(char const *s1, char ch, char const *s2)
+char	*ft_strjoin_three(char *s1, char ch, char *s2)
 {
 	int		i;
 	int		j;
@@ -168,4 +168,46 @@ char	*ft_strndup(char *s1, size_t n)
 	ft_memcpy(s2, s1, n);
 	s2[n + 1] = 0;
 	return (s2);
+}
+
+static size_t	get_digits(int n)
+{
+	size_t	i;
+
+	i = 1;
+	if (n == 0)
+		return (1);
+	while (n != 0)
+	{
+		n /= 10;
+		i++;
+	}
+	return (i - 1);
+}
+
+char	*ft_itoa(int n)
+{
+	char		*str_num;
+	size_t		digits;
+	long int	num;
+
+	num = n;
+	digits = get_digits(n);
+	if (n < 0)
+	{
+		num *= -1;
+		digits++;
+	}
+	str_num = (char *)malloc(sizeof(char) * (digits + 1));
+	if (!str_num)
+		return (NULL);
+	*(str_num + digits) = 0;
+	while (digits--)
+	{
+		*(str_num + digits) = num % 10 + '0';
+		num = num / 10;
+	}
+	if (n < 0)
+		*(str_num + 0) = '-';
+	return (str_num);
 }

@@ -44,12 +44,14 @@ typedef struct s_data
 	char	*path;
 	int		stdout_og;
 	int		stdin_og;
+	int		hd_id;
 }		t_data;
 
 typedef struct s_inf
 {
 	char			flag; // 'h' 'c' 
 	char			*file;
+	char			*hd_name;
 	struct s_inf	*next;
 }	t_inf;
 
@@ -70,9 +72,14 @@ typedef struct s_list
 	t_inf			*inf;
 	t_outf			*outf;
 	struct s_list	*next;
+	int				hd_nbr;
 }		t_list;
 
 typedef struct sigaction t_sigaction;
+
+//handle_heredoc:
+void	handle_heredoc(t_list *list, t_data *vars);
+void	unlink_heredocs(t_list *list, t_data *vars);
 
 //signals:
 void signals_to_default(void);
@@ -116,7 +123,7 @@ void	closing_pipes(t_data *vars);
 void	check_in_files(t_list *list, t_data *vars, char ***env);
 void	check_out_files(t_list *list, t_data *vars, char ***env);
 int		hd(t_list *list, int *fd);
-int		here_doc(t_data *vars, t_list *list);
+int		here_doc(t_data *vars, t_list *list, char *name);
 void	heredoc_err(t_data *vars, t_list *list);
 
 //check_cmd_access:
@@ -143,10 +150,11 @@ char	*ft_mystrncpy(char *dest, char *src, unsigned int n);
 int		ft_lstsize(t_list *lst);
 int		ft_outfsize(t_outf *lst);
 int		ft_infsize(t_inf *lst);
-char	*ft_substr_split(char const *s, unsigned int start, size_t len);
-char	**ft_split_ex(char const *s, char c);
-char	*ft_strjoin_three(char const *s1, char ch, char const *s2);
+char	*ft_substr_split(char *s, unsigned int start, size_t len);
+char	**ft_split_ex(char *s, char c);
+char	*ft_strjoin_three(char *s1, char ch, char *s2);
 char	*ft_strndup(char *s1, size_t n);
+char	*ft_itoa(int n);
 
 //built_in.c duplicating and freeind environment
 int		builtin(char *cmd, t_list *list, char ***env);
@@ -261,7 +269,7 @@ int		is_special_str(char *str);
 
 // char	**parse_user_input(char **user_input);
 // char	*parse_argument(char **user_input);
-// int		add_in_result(char *result, char *temp, int i, int index);
+// int		add_i		in_n--;n_result(char *result, char *temp, int i, int index);
 // int		add_in_argument(char **result, char *temp, int shift);
 // char	*check_result(char *result, int index);
 
@@ -271,7 +279,7 @@ int		is_special_str(char *str);
 
 
 // //utils
-// void	*ft_malloc(int size);
+// void	*ft_malloc(int size);endif
 
 // char	**ft_double_realloc(char **src, int size);
 // void	*ft_realloc(char *src, int size);

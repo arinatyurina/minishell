@@ -22,6 +22,7 @@ t_inf	*init_inf(char	*file, char flag)
 	inf->flag = flag;
 	inf->file =	file;
 	inf->next = NULL;
+	inf->hd_name = NULL;
 	return (inf);
 }
 
