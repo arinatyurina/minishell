@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 13:23:44 by rtavabil          #+#    #+#             */
-/*   Updated: 2024/04/29 16:17:03 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/03 16:54:53 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,7 +243,8 @@ void	add_next_outf(t_list **list, char *file, char *flag);
 void	add_next_inf(t_list **list, char *file, char *flag);
 int		is_special_str(char *str);
 
-
+//parsing
+int		is_alphanum(char c);
 
 
 
