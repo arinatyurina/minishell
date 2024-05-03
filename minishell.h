@@ -123,7 +123,7 @@ void	closing_pipes(t_data *vars);
 void	check_in_files(t_list *list, t_data *vars, char ***env);
 void	check_out_files(t_list *list, t_data *vars, char ***env);
 int		hd(t_list *list, int *fd);
-int		here_doc(t_data *vars, t_list *list, char *name);
+void	here_doc(t_data *vars, t_list *list, char *name);
 void	heredoc_err(t_data *vars, t_list *list);
 
 //check_cmd_access:
