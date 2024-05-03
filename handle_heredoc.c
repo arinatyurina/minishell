@@ -65,7 +65,8 @@ int	hd(t_list *list, int *fd)
 		ft_putstr_fd("minishell: warning: here-document delimited by end-of-file (wanted `", 1);
 		ft_putstr_fd(list->inf->file, 1);
 		ft_putstr_fd("')\n", STDOUT_FILENO);
-		return (0);
+		exit (0);
+		//return (0);
 	}
 	if (!line)
 		exit(1);
@@ -84,7 +85,7 @@ int	hd(t_list *list, int *fd)
 	return (1);
 }
 
-int	here_doc(t_data *vars, t_list *list, char *name)
+void	here_doc(t_data *vars, t_list *list, char *name)
 {
 	int			fd;
 	char		*line;
@@ -101,7 +102,21 @@ int	here_doc(t_data *vars, t_list *list, char *name)
 	//if (fd < 0)
 	//	heredoc_err(vars, list);
 	//unlink(name);
-	return (fd);
+	exit(0);
+}
+
+void	hd_sigint_handler(int s)
+{
+	ft_putstr_fd("^C\n", STDOUT_FILENO);
+	exit (1);
+	// rl_replace_line("", 1);
+	// rl_on_new_line();
+	// rl_redisplay();
+}
+
+void	init_hd_signals(void)
+{
+	signal(SIGINT, hd_sigint_handler);
 }
 
 void	execute_hd(t_list *list, t_data *vars)
@@ -128,13 +143,21 @@ void	execute_hd(t_list *list, t_data *vars)
 			free(l_id);
 			free(i_id);
 			free(name_tmp);
-			//vars->id = fork();
-			vars->in_file = here_doc(vars, list, list->inf->hd_name);
+			vars->id = fork();
+			if (vars->id == -1)
+				ft_putstr_fd("Error while forking", 2);
+			if (vars->id == 0)
+			{
+				init_hd_signals();
+				here_doc(vars, list, list->inf->hd_name);
+			}
+			wait(NULL);
 			i++;
 		}
 		in_n--;
 		list->inf = list->inf->next;
 	}
+	in_n = ft_infsize(list->inf);
 	list->inf = copy;
 }
 

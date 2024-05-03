@@ -73,11 +73,11 @@ int	execute(t_list *list, char ***env)
 
 	wstatus = 0;
 	vars.lists_nbr = ft_lstsize(list);
+	vars.stdin_og = dup(STDIN_FILENO);
+	vars.stdout_og = dup(STDOUT_FILENO);
 	handle_heredoc(list, &vars);
 	if (one_cmd_builtin(list->cmd, &vars) == 1)
 	{
-		vars.stdin_og = dup(STDIN_FILENO);
-		vars.stdout_og = dup(STDOUT_FILENO);
 		check_in_files(list, &vars, env);
 		check_redirections(&vars, list);
 		redirect_stream(vars.in_file, vars.out_file);
