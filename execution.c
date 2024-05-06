@@ -91,11 +91,7 @@ int	execute(t_list *list, char ***env)
 	else
 	{
 		case_with_pipes(list, &vars, *env);
-		waitpid(vars.id, &wstatus, 0);
-		while (vars.lists_nbr-- != 1)
-			(wait(NULL));
-		if (WIFEXITED(wstatus))
-			wstatus = WEXITSTATUS(wstatus);
+		wstatus = waiting(list, &vars);
 	}
 	unlink_heredocs(list, &vars);
 	//printf("exit status = %d\n", wstatus);
