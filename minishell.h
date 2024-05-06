@@ -78,7 +78,7 @@ typedef struct s_list
 typedef struct sigaction t_sigaction;
 
 //handle_heredoc:
-void	handle_heredoc(t_list *list, t_data *vars);
+int	handle_heredoc(t_list *list, t_data *vars);
 void	unlink_heredocs(t_list *list, t_data *vars);
 
 //signals:

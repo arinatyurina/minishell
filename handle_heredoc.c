@@ -57,9 +57,7 @@ int	hd(t_list *list, int *fd)
 	char	*copy_line;
 	int		i;
 
-	signals_hd();
 	line = readline("> ");
-	//signals_hd();
 	if (line == NULL)
 	{
 		ft_putstr_fd("minishell: warning: here-document delimited by end-of-file (wanted `", 1);
@@ -107,8 +105,10 @@ void	here_doc(t_data *vars, t_list *list, char *name)
 
 void	hd_sigint_handler(int s)
 {
-	ft_putstr_fd("^C\n", STDOUT_FILENO);
-	exit (1);
+	//ioctl(0, TIOCSTI, "\n");
+	printf("\n");
+	//ft_putstr_fd("^C\n", STDOUT_FILENO);
+	exit (142);
 	// rl_replace_line("", 1);
 	// rl_on_new_line();
 	// rl_redisplay();
@@ -119,7 +119,7 @@ void	init_hd_signals(void)
 	signal(SIGINT, hd_sigint_handler);
 }
 
-void	execute_hd(t_list *list, t_data *vars)
+int	execute_hd(t_list *list, t_data *vars)
 {
 	int	in_n;
 	t_inf *copy;
@@ -127,7 +127,7 @@ void	execute_hd(t_list *list, t_data *vars)
 	char	*name_tmp;
 	char	*l_id;
 	char	*i_id;
-
+	int		wstatus;
 
 	copy = list->inf;
 	in_n = ft_infsize(list->inf);
@@ -148,10 +148,17 @@ void	execute_hd(t_list *list, t_data *vars)
 				ft_putstr_fd("Error while forking", 2);
 			if (vars->id == 0)
 			{
+				//signal(SIGINT, SIG_DFL);
 				init_hd_signals();
 				here_doc(vars, list, list->inf->hd_name);
 			}
-			wait(NULL);
+			signal(SIGINT, SIG_IGN);
+			waitpid(vars->id, &wstatus, 0);
+				if (WIFEXITED(wstatus))
+			wstatus = WEXITSTATUS(wstatus);
+			init_signals();
+			if (wstatus == 142)
+				break;
 			i++;
 		}
 		in_n--;
@@ -159,28 +166,10 @@ void	execute_hd(t_list *list, t_data *vars)
 	}
 	in_n = ft_infsize(list->inf);
 	list->inf = copy;
+	if (wstatus == 142)
+		return (1);
+	return (0);
 }
-
-	// int	i;
-
-	// i = 0;
-	// while (i < vars->lists_nbr && list != NULL)
-	// {
-	// 	vars->id = fork();
-	// 	if (vars->id == -1)
-	// 		ft_putstr_fd("Error while forking", 2);
-	// 	if (vars->id == 0)
-	// 	{
-	// 		signals_to_default();
-	// 		check_in_files(list, vars, env);
-	// 		check_redirections(vars, list);
-	// 		redirect_stream(vars->in_file, vars->out_file);
-	// 		closing_pipes(vars);
-	// 		now_execute(vars, list, env);
-	// 	}
-	// 	i++;
-	// 	list = list->next;
-	// }
 
 void	count_hd(t_list *list)
 {
@@ -199,45 +188,29 @@ void	count_hd(t_list *list)
 	list->inf = copy;
 }
 
-void	handle_heredoc(t_list *list, t_data *vars)
+int	handle_heredoc(t_list *list, t_data *vars)
 {
 	t_list	*copy;
 	int		i;
+	int		flag;
 
+	flag = 0;
 	copy = list;
 	while (list != NULL)
 	{
 		count_hd(list);
 		if (list->hd_nbr != 0)
-				execute_hd(list, vars);
+				if (execute_hd(list, vars) == 1)
+				{
+					flag = 1;
+					break;
+				}
 		list = list->next;
 	}
 	list = copy;
+	//printf ("FLAG = %d\n", flag);
+	return (flag);
 }
-
-// void	handle_heredoc(t_list *list, t_data *vars)
-// {
-// 	t_list	*copy;
-// 	int		i;
-
-// 	copy = list;
-// 	while (list != NULL)
-// 	{
-// 		count_hd(list);
-// 		// правильно считает
-// 		if (list->hd_nbr != 0)
-// 		{
-// 			i = list->hd_nbr;
-// 			while (i > 0)
-// 			{
-// 				execute_hd(list, vars);
-// 				i--;
-// 			}
-// 		}
-// 		list = list->next;
-// 	}
-// 	list = copy;
-// }
 
 void	unlink_heredocs(t_list *list, t_data *vars)
 {
@@ -251,7 +224,7 @@ void	unlink_heredocs(t_list *list, t_data *vars)
 	i = 1;
 	while (in_n != 0 && list->inf != NULL)
 	{
-		if (list->inf->flag == 'h')
+		if (list->inf->flag == 'h' && list->inf->hd_name != NULL)
 		{
 			unlink(list->inf->hd_name);
 			i++;

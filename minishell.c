@@ -126,7 +126,7 @@ int	main(int argc, char **argv, char **env)
 		add_history(user_input);
 		list = input(user_input, env_copy);
 		//output_list(list);
-		execute(list, &env);
+		execute(list, &env_copy);
 		//exit_status = exec(&env_copy);
 	}
 	free(user_input);

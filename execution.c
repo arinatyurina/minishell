@@ -75,7 +75,11 @@ int	execute(t_list *list, char ***env)
 	vars.lists_nbr = ft_lstsize(list);
 	vars.stdin_og = dup(STDIN_FILENO);
 	vars.stdout_og = dup(STDOUT_FILENO);
-	handle_heredoc(list, &vars);
+	if (handle_heredoc(list, &vars) == 1)
+	{
+		unlink_heredocs(list, &vars);
+		return (1); // STATUS OF CTRL C ???????????????????
+	}
 	if (one_cmd_builtin(list->cmd, &vars) == 1)
 	{
 		check_in_files(list, &vars, env);
