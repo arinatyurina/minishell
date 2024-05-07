@@ -75,7 +75,11 @@ int	execute(t_list *list, char ***env)
 	vars.lists_nbr = ft_lstsize(list);
 	vars.stdin_og = dup(STDIN_FILENO);
 	vars.stdout_og = dup(STDOUT_FILENO);
-	handle_heredoc(list, &vars);
+	if (handle_heredoc(list, &vars) == 1)
+	{
+		unlink_heredocs(list, &vars);
+		return (1); // STATUS OF CTRL C ???????????????????
+	}
 	if (one_cmd_builtin(list->cmd, &vars) == 1)
 	{
 		check_in_files(list, &vars, env);
@@ -87,11 +91,7 @@ int	execute(t_list *list, char ***env)
 	else
 	{
 		case_with_pipes(list, &vars, *env);
-		waitpid(vars.id, &wstatus, 0);
-		while (vars.lists_nbr-- != 1)
-			(wait(NULL));
-		if (WIFEXITED(wstatus))
-			wstatus = WEXITSTATUS(wstatus);
+		wstatus = waiting(list, &vars);
 	}
 	unlink_heredocs(list, &vars);
 	//printf("exit status = %d\n", wstatus);
