@@ -24,11 +24,10 @@
 # include <errno.h>
 # include <sys/stat.h>
 # include <fcntl.h>
-#include <signal.h>
+# include <signal.h>
 # include <sysexits.h>
-#include <stdbool.h>
-#include <sys/ioctl.h>
-#include <asm/termbits.h> 
+# include <stdbool.h>
+# include <asm/termbits.h> 
 
 typedef struct s_data
 {
@@ -118,14 +117,14 @@ void	check_redirections(t_data *vars, t_list *list);
 void	free_pipes(t_data *vars);
 void	create_pipes(t_data *vars);
 void	redirect_stream(int input, int output);
+void	redirect_back(t_data *vars);
 void	closing_pipes(t_data *vars);
 
 //check_files:
-void	check_in_files(t_list *list, t_data *vars, char ***env);
-void	check_out_files(t_list *list, t_data *vars, char ***env);
-int		hd(t_list *list, int *fd);
-void	here_doc(t_data *vars, t_list *list, char *name);
-void	heredoc_err(t_data *vars, t_list *list);
+void	check_in_files(t_list *list, t_data *vars);
+void	open_inf(t_list *list, t_data *vars);
+void	check_out_files(t_list *list, t_data *vars);
+void	open_outf(t_list *list, t_data *vars);
 
 //check_cmd_access:
 void	checking_access(t_data *vars, t_list *list, char **env);
@@ -142,7 +141,7 @@ char	*ft_strdup_ex(char *s);
 int	ft_strlcat(char *dst, char *src, int size);
 char	*ft_strcat(char *dest, char *src);
 void	ft_putstr_fd(char *s, int fd);
-char	*ft_strchr(const char *s, int c);
+char	*ft_strchr(char *s, int c);
 int		ft_atoi(const char *nptr);
 
 char	*ft_mystrncpy(char *dest, char *src, unsigned int n);
