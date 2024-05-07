@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 18:30:52 by rtavabil          #+#    #+#             */
-/*   Updated: 2024/05/07 13:56:54 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/07 19:19:23 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,19 +92,27 @@ char	**duplicate_env(char **env)
 	return (dup_env);
 }
 
-t_list	*input(char *user_input, char **env_copy)
+t_list	*input(char *user_input, char **env_copy, int *exit_code)
 {
 	char	**tokens;
 	t_list	*list;
 
 	list = NULL;
+	if (count_quotes(user_input))
+	{
+		ft_putstr_fd("Odd number of quotes\n", 2);
+		*exit_code = 1;
+		return (NULL);
+	}
 	tokens = get_tokens(user_input);
-	list = parse(user_input, tokens, env_copy);
+	list = parse(user_input, tokens, env_copy, exit_code);
 	free_double_array(tokens);
+	if (list == NULL)
+		return (NULL);
 	return(list);
 }
 
-void	free_list(t_list **list)
+void	free_list_node(t_list **list)
 {
 	if (*list && list)
 	{
@@ -118,6 +126,21 @@ void	free_list(t_list **list)
 			ft_clear_outf(&(*list)->outf);	
 		free(*list);
 	}
+}
+
+void	free_list(t_list **list)
+{
+	t_list *node;
+
+	if (!list)
+		return ;
+	while (*list)
+	{
+		node = (*list)->next;
+		free_list_node(list);
+		*list = node;
+	}
+	list = NULL;
 }
 
 int	main(int argc, char **argv, char **env)
@@ -141,14 +164,13 @@ int	main(int argc, char **argv, char **env)
 		if (!ft_strcmp(user_input, "") || is_empty_str(user_input))
 			continue;
 		add_history(user_input);
-		list = input(user_input, env_copy);
-		//output_list(list);
-		execute(list, &env_copy);
-		//exit_status = exec(&env_copy);
+		list = input(user_input, env_copy, &exit_status);
+		if (list == NULL)
+			continue ;
+		exit_status = execute(list, &env_copy);
 		free_list(&list);
 	}
 	free(user_input);
-	//free_list(&list);
 	free_dup_env(env_copy);
 	rl_clear_history();
 }

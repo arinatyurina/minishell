@@ -6,17 +6,17 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 18:57:12 by rtavabil          #+#    #+#             */
-/*   Updated: 2024/05/07 17:32:12 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/07 19:09:10 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_list	*parse_pipe(t_list **list, char **tokens, char **env)
+t_list	*parse_pipe(t_list **list, char **tokens, char **env, int *exit_code)
 {
 	t_list	*next;
 
-	if ((*list)->cmd)
+	if ((*list)->cmd && *tokens != NULL)
 	{
 		next = init_list(env);
 		add_last_list(list, next);
@@ -24,36 +24,41 @@ t_list	*parse_pipe(t_list **list, char **tokens, char **env)
 	}
 	else if (*tokens == NULL)
 	{
-		//ouput error
+		*exit_code = 2;
+		ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
+		return (NULL);
 	}
 	else
 	{
-		//ouput error 
+		*exit_code = 2;
+		ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
+		return (NULL);
 	}
 	return (*list);
 }
 
-void	parse_exp(t_list **list, char **tokens, \
-				char *user_input, char **env)
-{
-	//check if space after
-	//if not concatenate with next 
-	//if next is ''
-	//expand /0 /a /b /t /n /v /f /r
-	return ;
-}
+// void	parse_exp(t_list **list, char **tokens, \
+// 				char *user_input, char **env)
+// {
+// 	//check if space after
+// 	//if not concatenate with next 
+// 	//if next is ''
+// 	//expand /0 /a /b /t /n /v /f /r
+// 	return ;
+// }
 
 
-char	*parse_no_q(char *str, char **env)
+char	*parse_no_q(char *str, char **env, int *exit_code)
 {
 	char	*temp;
 	char	*ret;
 
 	if (*str == '$')
 	{
-		temp = get_env_parse(str, env);
+		temp = get_env_parse(str, env, exit_code);
 		ret = (char *)malloc(ft_strlen(temp) + 1);
 		ft_strlcpy(ret, temp, ft_strlen(temp) + 1);
+		free(temp);
 		return (ret);
 	}
 	else
@@ -122,13 +127,13 @@ void	add_argv(t_list **list, char *token)
 	}
 }
 
-void	parse_string(t_list **list, char *user_input, char **tokens, char **env)
+void	parse_string(t_list **list, char *user_input, char **tokens,  int *exit_code)
 {
 	char	*str;
 
 	if (**tokens == '\"')
 	{
-		str = parse_double(*tokens, env);
+		str = parse_double(*tokens, (*list)->env, exit_code);
 		if ((*list)->cmd)
 		{
 			add_argv(list, str);
@@ -150,7 +155,7 @@ void	parse_string(t_list **list, char *user_input, char **tokens, char **env)
 	}
 	else 
 	{
-		str = parse_no_q(*tokens, env);
+		str = parse_no_q(*tokens, (*list)->env, exit_code);
 		if ((*list)->cmd)
 		{
 			add_argv(list, str);
@@ -159,11 +164,6 @@ void	parse_string(t_list **list, char *user_input, char **tokens, char **env)
 			(*list)->cmd = ft_strdup(str);
 		free(str);
 	}
-
-	// if (str)
-	// 	argv_add((*list)->argv, str); //TODO
-	//printf("check args %s\n", *(*list)->argv);
-	//free(str);
 }
 
 void set_id_list(t_list **list)
@@ -184,7 +184,7 @@ void set_id_list(t_list **list)
 	}
 }
 
-t_list	*parse(char *user_input, char **tokens, char **env_copy)
+t_list	*parse(char *user_input, char **tokens, char **env_copy, int *exit_code)
 {
 	t_list	*list;
 	t_list	*current;
@@ -200,12 +200,19 @@ t_list	*parse(char *user_input, char **tokens, char **env_copy)
 				tokens++;
 			}
 		else if (!ft_strcmp(*tokens, "|"))
-			current = parse_pipe(&current, tokens + 1, env_copy);
+		{
+			current = parse_pipe(&current, tokens + 1, env_copy, exit_code);
+			if (current == NULL)
+			{
+				free_list(&list);
+				return (NULL);
+			}
+		}
 		// //make all function return value for outputting errors
 		// if (!ft_strcmp(*tokens, "$"))
 		// 	parse_exp(&current, tokens, user_input, env_copy);
 		else 
-			parse_string(&current, user_input, tokens, env_copy);
+			parse_string(&current, user_input, tokens, exit_code);
 		tokens++;
 	}
 	set_id_list(&list);

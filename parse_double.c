@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 14:21:34 by rtavabil          #+#    #+#             */
-/*   Updated: 2024/05/07 14:17:58 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/07 18:05:59 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ char	**ft_split_str(char *s)
 	return (res - ft_count_words_str(s));
 }
 
-char	*parse_double(char *str, char **env)
+char	*parse_double(char *str, char **env, int *exit_code)
 {
 	char	**res;
 	int		num;
@@ -85,7 +85,7 @@ char	*parse_double(char *str, char **env)
 
 	str = remove_quotes(str);
 	res = ft_split_str(str);
-	res = replace_env(res, env);
+	res = replace_env(res, env, exit_code);
 	num = get_len_tokens(res);
 	final =	merge_tokens(num, res);
 	free(str);

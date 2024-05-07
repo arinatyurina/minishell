@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 13:23:44 by rtavabil          #+#    #+#             */
-/*   Updated: 2024/05/07 17:33:58 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/07 19:08:29 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,13 +234,13 @@ t_outf	*ft_lstoutf(t_outf *outf);
 void	add_last_outf(t_outf **head, t_outf *outf);
 
 //token expansions
-t_list	*parse(char *user_input, char **tokens, char **env_copy);
+t_list	*parse(char *user_input, char **tokens, char **env_copy, int *exit_code);
 void	parse_string(t_list **list, char *user_input, \
-					char **tokens, char **env);
-char	*parse_no_q(char *str, char **env);
+					char **tokens,  int *exit_code);
+char	*parse_no_q(char *str, char **env, int *exit_code);
 void	parse_exp(t_list **list, char **tokens, \
 				char *user_input, char **env);
-t_list	*parse_pipe(t_list **list, char **tokens, char **env);
+t_list	*parse_pipe(t_list **list, char **tokens, char **env, int *exit_code);
 void	parse_red(char **tokens, t_list **list);
 void	add_next_outf(t_list **list, char *file, char *flag);
 void	add_next_inf(t_list **list, char *file, char *flag);
@@ -263,13 +263,13 @@ int		get_num_tokens(char **tokens);
 int		get_len_tokens(char	**tokens);
 char	*merge_tokens(int len, char **tokens);
 void	free_double_array(char **array);
-char	*parse_double(char *str, char **env);
+char	*parse_double(char *str, char **env, int *exit_code);
 
 //parsing with env
-char	*return_env(char *token, char **env);
+char	*return_env(char *token, char **env, int *exit_code);
 char	**realloc_tokens(char **tokens, int index, char *value);
-char	*get_env_parse(char *word, char **env);
-char	**replace_env(char **tokens, char **env);
+char	*get_env_parse(char *word, char **env, int *exit_code);
+char	**replace_env(char **tokens, char **env, int *exit_code);
 
 //input 
 int		is_space(int c);

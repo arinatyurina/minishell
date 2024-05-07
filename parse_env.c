@@ -6,13 +6,13 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 18:08:43 by rtavabil          #+#    #+#             */
-/*   Updated: 2024/05/07 17:08:54 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/07 18:31:39 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*return_env(char *token, char **env)
+char	*return_env(char *token, char **env, int *exit_code)
 {
 	char	*value;
 	char	*env_word;
@@ -24,9 +24,13 @@ char	*return_env(char *token, char **env)
 	{
 		env_word = *env;
 		if (!ft_strncmp(*env, token + 1, len) && *(env_word + len) == '=')
-			value = *env + len + 1;
+		{
+			value = (char *)malloc((ft_strlen(*env + len + 1) + 1) * sizeof(char));
+			ft_strlcpy(value, *env + len + 1, ft_strlen(*env + len + 1) + 1);
+		//	value = *env + len + 1;
+		}
 		else if (!ft_strncmp("$?", token, len))
-			value = "exit code";
+			value = ft_itoa(*exit_code);
 		env++;
 	}
 	return (value);
@@ -60,20 +64,22 @@ char	**realloc_tokens(char **tokens, int index, char *value)
 	return (new);
 }
 
-char	*get_env_parse(char *word, char **env)
+char	*get_env_parse(char *word, char **env, int *exit_code)
 {
 	char	*value;
 	char	*env_word;
 
 	value = NULL;
 	if (env != NULL)
-		value = return_env(word, env);
+		value = return_env(word, env, exit_code);
 	if (value)
 		return (value);
-	return ("");
+	else
+		value = (char *)ft_calloc(1, 1);
+	return (value);
 }
 
-char	**replace_env(char **tokens, char **env)
+char	**replace_env(char **tokens, char **env, int *exit_code)
 {
 	int		num;
 	int		i;
@@ -87,8 +93,9 @@ char	**replace_env(char **tokens, char **env)
 		token = tokens[i];
 		if (*token == '$' && (is_alphanum(*(token + 1)) || *(token + 1) == '?'))
 		{
-			env_value = get_env_parse(token, env);
+			env_value = get_env_parse(token, env, exit_code);
 			tokens = realloc_tokens(tokens, i, env_value);
+			free(env_value);
 		}
 		i++;
 	}
