@@ -21,10 +21,6 @@ also is you pass just a string without = it just doesnt impact
 
 #include "minishell.h"
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
 void	add_str_arr(char *var, char ***env)
 {
 	int		len;
