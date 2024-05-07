@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 18:57:12 by rtavabil          #+#    #+#             */
-/*   Updated: 2024/05/07 12:18:27 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/07 15:41:47 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,6 @@
 t_list	*parse_pipe(t_list **list, char **tokens, char **env)
 {
 	t_list	*next;
-	//TODO
-	//check if list has a command 
-	//if not 
-	//pipe_error() syntax error near unexpected token `|'
-	//check if tokens has something after (not pipe)
-	//if not
-	//pipe_error() syntax error near unexpected token `|'
-	//create new t_list instance
-	//return list instance
 
 	if ((*list)->cmd)
 	{
@@ -62,15 +53,12 @@ char	*parse_no_q()
 	return (NULL);
 }
 
-char	*parse_single()
+char	*parse_single(char *str)
 {
-	//remove quotes
-	//-assign new memory
-	//-substr from 1 to len - 1
-	//free old one
-	//check for $ sign
-	//if yes expand 
-	return (NULL);
+	char	*new;
+
+	new = remove_quotes(str);
+	return (new);
 }
 
 int	is_next_string_space(char *token, char *user_input)
@@ -84,43 +72,6 @@ int	is_next_string_space(char *token, char *user_input)
 		return(1);
 	return (0);
 }
-
-// char	*return_string(t_list **list, char *user_input, char ***tokens)
-// {
-// 	char	*token;
-// 	char	**temp;
-
-// 	temp = *tokens;
-// 	token = NULL;
-// 	if (**temp == '\"')
-// 	{
-// 		printf("token is %s\n", *temp);
-// 		token = parse_double(*temp, (*list)->env);
-// 	}
-// 	else if (*user_input == '\'')
-// 		token = parse_single();
-// 	else
-// 		token = parse_no_q();
-// 	// if ((*tokens + 1) && !is_special_str(*(*tokens + 1)))
-// 	// {
-// 	// 	temp = *tokens + 1;
-// 	// 	next = return_string(list, user_input, &temp);
-// 	// 	ptr = ft_strnstr(user_input, next, ft_strlen(next));
-// 	// 	if (is_space(*(ptr + ft_strlen(*(*tokens + 1)))))
-// 	// 	{
-// 	// 		next = return_string(list, user_input, tokens);
-// 	// 		(*tokens)++;
-			
-// 	// 		//increment tokens
-// 	// 		//concatenate with token
-// 	// 	}
-// 	// }
-// 	// //check if it has space in user input
-// 	// //if not and if next token is string -> concatenate with next
-
-// 	// //check $ sign
-// 	return (token);
-// }
 
 void	add_argv(t_list **list, char *token)
 {
@@ -173,6 +124,18 @@ void	parse_string(t_list **list, char *user_input, char **tokens, char **env)
 		}
 		else 
 			(*list)->cmd = str;
+		free(str);
+	}
+	else if (**tokens == '\'')
+	{
+		str = parse_single(*tokens);
+		if ((*list)->cmd)
+		{
+			add_argv(list, str);
+		}
+		else 
+			(*list)->cmd = str;
+		free(str);
 	}
 	else 
 	{
@@ -187,7 +150,7 @@ void	parse_string(t_list **list, char *user_input, char **tokens, char **env)
 	// if (str)
 	// 	argv_add((*list)->argv, str); //TODO
 	//printf("check args %s\n", *(*list)->argv);
-
+	//free(str);
 }
 
 void set_id_list(t_list **list)
@@ -213,17 +176,13 @@ t_list	*parse(char *user_input, char **tokens, char **env_copy)
 	t_list	*list;
 	t_list	*current;
 
-	//printf("entered parse()\n");
 	list = init_list(env_copy);
 	current = list;
-	//parse_string(&list, user_input, &tokens);
 	while (*tokens)
 	{
-		//printf("entered while\n");
 		if (!ft_strcmp(*tokens, ">") || !ft_strcmp(*tokens, "<") || \
 			!ft_strcmp(*tokens, ">>") || !ft_strcmp(*tokens, "<<"))
 			{
-			//	printf("passed if\n");
 				parse_red(tokens, &current);
 				tokens++;
 			}
@@ -236,8 +195,44 @@ t_list	*parse(char *user_input, char **tokens, char **env_copy)
 			parse_string(&current, user_input, tokens, env_copy);
 		tokens++;
 	}
-	//printf("finished parse()\n");
 	set_id_list(&list);
 	return (list);
 }
 
+
+// char	*return_string(t_list **list, char *user_input, char ***tokens)
+// {
+// 	char	*token;
+// 	char	**temp;
+
+// 	temp = *tokens;
+// 	token = NULL;
+// 	if (**temp == '\"')
+// 	{
+// 		printf("token is %s\n", *temp);
+// 		token = parse_double(*temp, (*list)->env);
+// 	}
+// 	else if (*user_input == '\'')
+// 		token = parse_single();
+// 	else
+// 		token = parse_no_q();
+// 	// if ((*tokens + 1) && !is_special_str(*(*tokens + 1)))
+// 	// {
+// 	// 	temp = *tokens + 1;
+// 	// 	next = return_string(list, user_input, &temp);
+// 	// 	ptr = ft_strnstr(user_input, next, ft_strlen(next));
+// 	// 	if (is_space(*(ptr + ft_strlen(*(*tokens + 1)))))
+// 	// 	{
+// 	// 		next = return_string(list, user_input, tokens);
+// 	// 		(*tokens)++;
+			
+// 	// 		//increment tokens
+// 	// 		//concatenate with token
+// 	// 	}
+// 	// }
+// 	// //check if it has space in user input
+// 	// //if not and if next token is string -> concatenate with next
+
+// 	// //check $ sign
+// 	return (token);
+// }
