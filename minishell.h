@@ -26,7 +26,6 @@
 # include <fcntl.h>
 # include <signal.h>
 # include <sysexits.h>
-# include <stdbool.h>
 # include <asm/termbits.h> 
 
 typedef struct s_data
