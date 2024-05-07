@@ -18,7 +18,7 @@ void	if_path_null(t_data *vars, t_list *list)
 	{
 		perror(list->cmd);
 		free_pipes(vars);
-		// FREE all malloced before execution!!!
+		free_list(&list);
 		exit (127);
 	}
 }
@@ -70,19 +70,18 @@ char	**ft_executable(char *cmd, char **argv)
 }
 void	freeing_main(t_list *list);
 
+// 84 line: чистим же среду при форках? т.к. это child, чтобы не было ликов
 void	now_execute(t_data *vars, t_list *list, char ***env)
 {
-	int	return_builtin;
+	int		return_builtin;
 	char	**exec;
 
 	return_builtin = builtin(list->cmd, list, env);
 	if (return_builtin != 1042)
 	{
 		free_pipes(vars);
-		free(list->inf);
-		//free(list->inf);
-		//free_all_main(list, env); //temporary one
-		/// FREE all malloced before execution!
+		free_list(&list);
+		free_dup_env(env);
 		exit (return_builtin);
 	}
 	checking_access(vars, list, *env);
@@ -93,7 +92,7 @@ void	now_execute(t_data *vars, t_list *list, char ***env)
 		perror(vars->path);
 		free_pipes(vars);
 		free(vars->path);
-		// FREE all malloced before execution!!!
+		free_list(&list);
 		exit (1);
 	}
 }
