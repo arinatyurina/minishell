@@ -18,8 +18,9 @@ SRC := tokens.c token_utils.c token_utils2.c \
 		parse.c built_in.c check_cmd_access.c \
 		echo_builtin.c execution.c export_builtin.c \
 		now_execute.c pwd_builtin.c unset_builtin.c \
-		utils_more.c cd_builtin.c check_files.c \
-		env_builtin.c exit_builtin.c pipes_managing.c utils.c \
+		execute_utils.c execute_utils2.c execute_utils3.c execute_utils4.c execute_utils5.c \
+		cd_builtin.c check_files.c \
+		env_builtin.c exit_builtin.c pipes_managing.c \
 		handle_signals.c handle_heredoc.c handle_heredoc2.c \
 		parse_red.c parse_utils.c token_utils4.c \
 		parse_env.c parse_double.c parse_double_utils.c 

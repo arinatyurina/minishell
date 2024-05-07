@@ -140,7 +140,8 @@ void	open_outf(t_list *list, t_data *vars);
 //check_cmd_access:
 void	checking_access(t_data *vars, t_list *list, char **env);
 void	check_path(t_data *vars, t_list *list, char **envp);
-//utils:
+
+//execution_utils
 int		ft_strcmp(char *s1, char *s2);
 int		ft_strncmp_ex(const char *s1, const char *s2, size_t n);
 char	*ft_strjoin(char *s1, char *s2);
@@ -148,16 +149,12 @@ int		ft_strlen_ex(const char *str);
 void	*ft_malloc(int size); //to be removed
 char	*ft_strcpy(char *dest, char *src);
 char	*ft_strdup_ex(char *s);
-//size_t	ft_strlcat(char *dst, const char *src, size_t size);
-int	ft_strlcat(char *dst, char *src, int size);
+int		ft_strlcat(char *dst, char *src, int size);
 char	*ft_strcat(char *dest, char *src);
 void	ft_putstr_fd(char *s, int fd);
 char	*ft_strchr(char *s, int c);
 int		ft_atoi(const char *nptr);
-
 char	*ft_mystrncpy(char *dest, char *src, unsigned int n);
-
-//utils_more:
 int		ft_lstsize(t_list *lst);
 int		ft_outfsize(t_outf *lst);
 int		ft_infsize(t_inf *lst);
