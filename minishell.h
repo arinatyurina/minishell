@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 13:23:44 by rtavabil          #+#    #+#             */
-/*   Updated: 2024/05/07 19:08:29 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/07 19:48:11 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ void	case_with_pipes(t_list *list, t_data *vars, char **env);
 
 //now_execute:
 void	now_execute(t_data *vars, t_list *list, char ***env);
+void	if_path_null(t_data *vars, t_list *list, char ***env);
 void	check_redirections(t_data *vars, t_list *list);
 
 //pipes_managing:

@@ -6,19 +6,21 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 17:25:54 by atyurina          #+#    #+#             */
-/*   Updated: 2024/05/07 17:35:14 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/07 19:57:30 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	if_path_null(t_data *vars, t_list *list)
+void	if_path_null(t_data *vars, t_list *list, char ***env)
 {
 	if (vars->path == NULL)
 	{
 		perror(list->cmd);
 		free_pipes(vars);
 		free_list(&list);
+		free_dup_env(*env);
+		rl_clear_history();
 		exit (127);
 	}
 }
@@ -85,7 +87,7 @@ void	now_execute(t_data *vars, t_list *list, char ***env)
 		exit (return_builtin);
 	}
 	checking_access(vars, list, *env);
-	if_path_null(vars, list);
+	if_path_null(vars, list, env);
 	exec = ft_executable(list->cmd, list->argv);
 	if (execve(vars->path, exec, *env) == -1)
 	{
@@ -93,6 +95,9 @@ void	now_execute(t_data *vars, t_list *list, char ***env)
 		free_pipes(vars);
 		free(vars->path);
 		free_list(&list);
+		free_dup_env(*env);
+		rl_clear_history();
+		free_double_array(exec);
 		exit (1);
 	}
 }

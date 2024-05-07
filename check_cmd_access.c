@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_cmd_access.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atyurina <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:59:43 by atyurina          #+#    #+#             */
-/*   Updated: 2024/04/12 15:59:45 by atyurina         ###   ########.fr       */
+/*   Updated: 2024/05/07 20:00:08 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	checking_access(t_data *vars, t_list *list, char **env)
 	i = 0;
 	if (access(list->cmd, X_OK) != -1 || found_sl(list->cmd) == 1)
 	{
-		vars->path = list->cmd;
+		vars->path = ft_strdup(list->cmd);
 		return ;
 	}
 	else
