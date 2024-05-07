@@ -34,28 +34,6 @@ int	builtin(char *cmd, t_list *list, char ***env)
 	return (1042);
 }
 
-// char	**duplicate_env(char **env)
-// {
-// 	int		len;
-// 	int		i;
-// 	char	**dup_env;
-
-// 	len = 0;
-// 	i = 0;
-// 	while (env[len] != NULL)
-// 		len++;
-// 	dup_env = ft_malloc((len + 1) * sizeof(char *));
-// 	while (i < len)
-// 	{
-// 		dup_env[i] = ft_strdup_ex(env[i]);
-// 		if (dup_env[i] == NULL)
-// 			return (NULL);
-// 		i++;
-// 	}
-// 	dup_env[i] = NULL;
-// 	return (dup_env);
-// }
-
 void	free_dup_env(char **env)
 {
 	int	i;
@@ -68,21 +46,3 @@ void	free_dup_env(char **env)
 	}
 	free(env);
 }
-
-// int	main(int argc, char **list->argv, char **env)
-// {
-// 	t_data	data;
-// 	int		return_value; //remove later
-
-// 	return_value = 10; //remove later
-// 	data.env = duplicate_env(env);
-// 	if (data.env == NULL)
-// 		return (1); //malloc error
-// //	ft_env(data.env);
-// 	if (argc > 1)
-// 		return_value = (builtin(list->argv[1], list->argv + 2, &data));
-// //	printf("\nexit code: %i", return_value); //remove later
-// //	ft_env(data.env);
-// 	free_dup_env(data.env);
-// 	return (0);
-// }

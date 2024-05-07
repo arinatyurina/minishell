@@ -12,13 +12,6 @@
 
 #include "minishell.h"
 
-/*
-atyurina@c2r6s1:~/minishell$ ./a.out cd
-env
-Before /home/atyurina/minishell
-minishell: cd: Segmentation fault (core dumped)
-*/
-
 int	if_cd_luck(char **env)
 {
 	char	buf[1024];
@@ -96,10 +89,3 @@ int	ft_cd(char **argv, char **env)
 		cd_with_argv(argv, env);
 	return (0);
 }
-
-/*	for test:
-char	s[100];
-printf("Before %s\n", getcwd(s, 100)); // printing current working directory 
-printf("After: %s\n", getcwd(s, 100)); // printing current working directory 
-ft_env(env); //print env 
-*/

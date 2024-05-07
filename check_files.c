@@ -30,7 +30,7 @@ void	open_outf(t_list *list, t_data *vars)
 	if (vars->out_file == -1)
 	{
 		perror(list->outf->file);
-		// FREE all malloced in structure before execution!!!!!!!
+		free_list(&list);
 		free_pipes(vars);
 		exit (1);
 	}
@@ -64,7 +64,7 @@ void	open_inf(t_list *list, t_data *vars)
 	if (vars->in_file == -1)
 	{
 		perror(list->inf->file);
-		// FREE all malloced in structure before execution!!!!!!!
+		free_list(&list);
 		free_pipes(vars);
 		exit (1);
 	}

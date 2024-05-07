@@ -57,7 +57,8 @@ void	check_argv_exit(t_list *list, int exit_val, char ***env)
 			ft_putstr_fd(list->argv[0], STDERR_FILENO);
 			ft_putstr_fd(": numeric argument required\n", STDERR_FILENO);
 			exit_val = 2;
-			free_dup_env(*env); //instead of this free all!!!!!!!!!!!!!
+			free_dup_env(*env);
+			free_list(&list);
 			exit (exit_val);
 		}
 	}
@@ -68,9 +69,10 @@ int	ft_exit(t_list *list, char ***env)
 	int	exit_val;
 
 	exit_val = EXIT_SUCCESS;
-	//FREE everything... !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	if (list->argv != NULL && list->argv[0] != NULL && list->argv[1] != NULL)
 	{
+		free_dup_env(*env);
+		free_list(&list);
 		ft_putstr_fd("exit\nminishell: exit: too many arguments\n", 2);
 		exit_val = 2;
 		exit (2);
@@ -86,7 +88,7 @@ int	ft_exit(t_list *list, char ***env)
 		else if (exit_val > 255)
 			exit_val = exit_val % 256;
 	}
-	free_dup_env(*env); //instead of this free all!!!!!!!!
+	free_dup_env(*env);
 	free_list(&list);
 	exit (exit_val);
 }

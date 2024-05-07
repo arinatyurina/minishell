@@ -16,39 +16,9 @@ void	heredoc_err(t_data *vars, t_list *list)
 {
 	unlink(".heredoc_tmp");
 	perror("file descriptor error\n");
-	// FREE all malloced in structure before execution!!!!!!! 
-	//нужно то что в листе замалочено убрать. временно сделаем это>>
-	free(list);
+	free_list(&list);
 	free_pipes(vars);
 	exit(1);
-}
-
-void	sigint_handler_hd(int sig)
-{
-	ft_putstr_fd("^C\n", STDOUT_FILENO);
-//	rl_replace_line("", 1);
-//	rl_on_new_line();
-//	rl_redisplay();
-	(void) sig;
-}
-
-void	signals_hd(void)
-{
-	// t_sigaction	act;
-	// t_sigaction	ign;
-
-	// act.sa_flags = SA_RESTART;
-	// sigemptyset(&act.sa_mask);
-	// act.sa_handler = &sigint_handler_hd;
-	// ign.sa_flags = SA_RESTART;
-	// sigemptyset(&ign.sa_mask);
-	// ign.sa_handler = SIG_IGN;
-	// if (sigaction(SIGINT, &act, NULL) != 0)
-	// 	exit(EXIT_FAILURE);
-	// if (sigaction(SIGQUIT, &ign, NULL) != 0)
-	// 	exit(EXIT_FAILURE);
-	signal(SIGINT, SIG_IGN);
-	signal(SIGQUIT, SIG_IGN);
 }
 
 int	hd(t_list *list, int *fd)
@@ -64,7 +34,6 @@ int	hd(t_list *list, int *fd)
 		ft_putstr_fd(list->inf->file, 1);
 		ft_putstr_fd("')\n", STDOUT_FILENO);
 		exit (0);
-		//return (0);
 	}
 	if (!line)
 		exit(1);
@@ -96,22 +65,13 @@ void	here_doc(t_data *vars, t_list *list, char *name)
 	while (ret == 1)
 		ret = hd(list, &fd);
 	close(fd);
-	//fd = open(name, O_RDONLY);
-	//if (fd < 0)
-	//	heredoc_err(vars, list);
-	//unlink(name);
 	exit(0);
 }
 
 void	hd_sigint_handler(int s)
 {
-	//ioctl(0, TIOCSTI, "\n");
 	printf("\n");
-	//ft_putstr_fd("^C\n", STDOUT_FILENO);
 	exit (142);
-	// rl_replace_line("", 1);
-	// rl_on_new_line();
-	// rl_redisplay();
 }
 
 void	init_hd_signals(void)
@@ -148,7 +108,6 @@ int	execute_hd(t_list *list, t_data *vars)
 				ft_putstr_fd("Error while forking", 2);
 			if (vars->id == 0)
 			{
-				//signal(SIGINT, SIG_DFL);
 				init_hd_signals();
 				here_doc(vars, list, list->inf->hd_name);
 			}
@@ -208,7 +167,6 @@ int	handle_heredoc(t_list *list, t_data *vars)
 		list = list->next;
 	}
 	list = copy;
-	//printf ("FLAG = %d\n", flag);
 	return (flag);
 }
 
