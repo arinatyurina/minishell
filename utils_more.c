@@ -211,3 +211,20 @@ char	*ft_itoa(int n)
 		*(str_num + 0) = '-';
 	return (str_num);
 }
+
+void	count_hd(t_list *list)
+{
+	int		in_n;
+	t_inf	*copy;
+
+	copy = list->inf;
+	in_n = ft_infsize(list->inf);
+	while (in_n != 0 && list->inf != NULL)
+	{
+		if (list->inf->flag == 'h')
+			list->hd_nbr++;
+		list->inf = list->inf->next;
+		in_n--;
+	}
+	list->inf = copy;
+}

@@ -77,14 +77,25 @@ typedef struct s_list
 typedef struct sigaction t_sigaction;
 
 //handle_heredoc:
-int	handle_heredoc(t_list *list, t_data *vars);
+void	hd_sigint_handler(int s);
+void	hd_child(t_list *list, t_data *vars);
+int		name_heredoc(t_list *list, t_data *vars, int i);
+int		execute_hd(t_list *list, t_data *vars);
+int		handle_heredoc(t_list *list, t_data *vars);
+void	count_hd(t_list *list);
+
+//handle_heredoc2
+void	heredoc_err(t_data *vars, t_list *list);
+void	ctrl_d_hd(t_list *list);
+int		hd(t_list *list, int *fd);
+void	here_doc(t_data *vars, t_list *list, char *name);
 void	unlink_heredocs(t_list *list, t_data *vars);
 
 //signals:
-void signals_to_default(void);
+void 	signals_to_default(void);
 void	sigint_handler(int sig);
 void	init_signals(void);
-int	waiting(t_list *list, t_data *vars);
+int		waiting(t_list *list, t_data *vars);
 
 // temporary!!!! for freeinf things allocated in main
 void	free_all_main(t_list *list, char ***env);

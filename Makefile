@@ -20,7 +20,7 @@ SRC := tokens.c token_utils.c token_utils2.c \
 		now_execute.c pwd_builtin.c unset_builtin.c \
 		utils_more.c cd_builtin.c check_files.c \
 		env_builtin.c exit_builtin.c pipes_managing.c utils.c \
-		handle_signals.c handle_heredoc.c \
+		handle_signals.c handle_heredoc.c handle_heredoc2.c \
 		parse_red.c parse_utils.c token_utils4.c \
 		parse_env.c parse_double.c parse_double_utils.c 
 OBJ := $(SRC:%.c=%.o)
