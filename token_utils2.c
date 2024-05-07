@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:30:14 by rtavabil          #+#    #+#             */
-/*   Updated: 2024/04/18 18:01:11 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/07 16:42:11 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,20 @@ int	is_space(int c)
 	return (0);
 }
 
+char	*exp_end(char *s)
+{
+	if (*s != '\0')
+	{
+		while (*s)
+		{
+			if (is_special(*s) || is_space(*s))
+				break ;
+			s++;
+		}
+	}
+	return (s);
+}
+
 char	*count_special(char *s)
 {
 	if (*s == '\'')
@@ -71,7 +85,7 @@ char	*count_special(char *s)
 			s = s + 1;
 	}
 	else if (*s == '$')
-		;
+		s = exp_end(s + 1);
 	return (s);
 }
 
@@ -96,7 +110,8 @@ int	ft_count_words(char *s)
 			s = count_special(s);
 			words++;
 		}
-		s++;
+		if (*s != '\0')
+			s++;
 	}
 	return (words);
 }

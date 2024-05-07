@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 13:23:44 by rtavabil          #+#    #+#             */
-/*   Updated: 2024/05/07 13:56:09 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/07 17:33:58 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,7 +237,7 @@ void	add_last_outf(t_outf **head, t_outf *outf);
 t_list	*parse(char *user_input, char **tokens, char **env_copy);
 void	parse_string(t_list **list, char *user_input, \
 					char **tokens, char **env);
-char	*parse_no_q(void);
+char	*parse_no_q(char *str, char **env);
 void	parse_exp(t_list **list, char **tokens, \
 				char *user_input, char **env);
 t_list	*parse_pipe(t_list **list, char **tokens, char **env);

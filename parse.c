@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 18:57:12 by rtavabil          #+#    #+#             */
-/*   Updated: 2024/05/07 15:41:47 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/07 17:32:12 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,23 @@ void	parse_exp(t_list **list, char **tokens, \
 }
 
 
-char	*parse_no_q()
+char	*parse_no_q(char *str, char **env)
 {
-	//check if next is ' or " or $
-	//if yes check for space 
-	//if no space concatenate
-	//return as it is?
+	char	*temp;
+	char	*ret;
+
+	if (*str == '$')
+	{
+		temp = get_env_parse(str, env);
+		ret = (char *)malloc(ft_strlen(temp) + 1);
+		ft_strlcpy(ret, temp, ft_strlen(temp) + 1);
+		return (ret);
+	}
+	else
+	{
+		ret = ft_strdup(str);
+		return (ret);
+	}
 	return (NULL);
 }
 
@@ -139,12 +150,14 @@ void	parse_string(t_list **list, char *user_input, char **tokens, char **env)
 	}
 	else 
 	{
+		str = parse_no_q(*tokens, env);
 		if ((*list)->cmd)
 		{
-			add_argv(list, *tokens);
+			add_argv(list, str);
 		}
 		else 
-			(*list)->cmd = ft_strdup(*tokens);
+			(*list)->cmd = ft_strdup(str);
+		free(str);
 	}
 
 	// if (str)

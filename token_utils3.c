@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 16:54:27 by rtavabil          #+#    #+#             */
-/*   Updated: 2024/05/03 17:32:07 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/07 16:01:13 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,17 @@ char	**split_pipe(char *s, int *i, char **res)
 
 char	**split_exp(char *s, int *i, char **res)
 {
-	*res++ = ft_substr(s, *i, 1);
-	*i = *i + 1;
+	int		end;
+	int		j;
+	
+	j = 1;
+	while(s[*i + j])
+	{
+		if (is_space(s[*i + j]) || is_special(s[*i + j]))
+			break ;
+		j++;
+	}
+	*res++ = ft_substr(s, *i, j);
+	*i = *i + j;
 	return (res);
 }

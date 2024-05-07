@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   now_execute.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atyurina <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 17:25:54 by atyurina          #+#    #+#             */
-/*   Updated: 2024/04/12 17:26:08 by atyurina         ###   ########.fr       */
+/*   Updated: 2024/05/07 17:35:14 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	now_execute(t_data *vars, t_list *list, char ***env)
 	{
 		free_pipes(vars);
 		free_list(&list);
-		free_dup_env(env);
+		free_dup_env(*env);
 		exit (return_builtin);
 	}
 	checking_access(vars, list, *env);
