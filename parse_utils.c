@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:31 by rtavabil          #+#    #+#             */
-/*   Updated: 2024/05/03 18:19:01 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/07 13:45:04 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,21 @@ int	is_special_str(char *str)
 	if (!ft_strcmp(str, "$"))
 		return (1);
 	return (0);
+}
+
+int	is_empty_str(char *str)
+{
+	if (str != NULL)
+	{
+		while (*str)
+		{
+			if (is_space(*str))
+				return (1);
+			str++;
+		}
+		return (0);
+	}
+	return (1);
 }
 
 char	*remove_quotes(char *str)

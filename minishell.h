@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 13:23:44 by rtavabil          #+#    #+#             */
-/*   Updated: 2024/05/07 13:14:03 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/07 13:56:09 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -268,7 +268,9 @@ char	**realloc_tokens(char **tokens, int index, char *value);
 char	*get_env_parse(char *word, char **env);
 char	**replace_env(char **tokens, char **env);
 
-
+//input 
+int		is_space(int c);
+int		is_empty_str(char *str);
 //free list
 void	ft_clear_inf(t_inf **inf);
 void	ft_clear_outf(t_outf **outf);

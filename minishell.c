@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 18:30:52 by rtavabil          #+#    #+#             */
-/*   Updated: 2024/05/07 13:14:53 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/07 13:56:54 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ int	main(int argc, char **argv, char **env)
 			ft_putstr_fd("exit\n", STDOUT_FILENO);
 			break;
 		}
-		if (!ft_strcmp(user_input, ""))
+		if (!ft_strcmp(user_input, "") || is_empty_str(user_input))
 			continue;
 		add_history(user_input);
 		list = input(user_input, env_copy);
