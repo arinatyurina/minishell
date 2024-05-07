@@ -18,6 +18,12 @@ void	redirect_stream(int input, int output)
 	dup2(output, STDOUT_FILENO);
 }
 
+void	redirect_back(t_data *vars)
+{
+	dup2(vars->stdin_og, STDIN_FILENO);
+	dup2(vars->stdout_og, STDOUT_FILENO);
+}
+
 void	closing_pipes(t_data *vars)
 {
 	int	i;

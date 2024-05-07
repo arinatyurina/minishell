@@ -60,10 +60,16 @@ void	case_with_pipes(t_list *list, t_data *vars, char **env)
 	free_pipes(vars);
 }
 
-void	redirect_back(t_data *vars)
+int	execute_one_builtin(t_list *list, t_data *vars, char ***env)
 {
-	dup2(vars->stdin_og, STDIN_FILENO);
-	dup2(vars->stdout_og, STDOUT_FILENO);
+	int	wstatus;
+
+	check_in_files(list, vars, env);
+	check_redirections(vars, list);
+	redirect_stream(vars->in_file, vars->out_file);
+	wstatus = builtin(list->cmd, list, env);
+	redirect_back(vars);
+	return (wstatus);
 }
 
 int	execute(t_list *list, char ***env)
@@ -78,23 +84,16 @@ int	execute(t_list *list, char ***env)
 	if (handle_heredoc(list, &vars) == 1)
 	{
 		unlink_heredocs(list, &vars);
-		return (1); // STATUS OF CTRL C ???????????????????
+		return (130);
 	}
 	if (one_cmd_builtin(list->cmd, &vars) == 1)
-	{
-		check_in_files(list, &vars, env);
-		check_redirections(&vars, list);
-		redirect_stream(vars.in_file, vars.out_file);
-		wstatus = builtin(list->cmd, list, env);
-		redirect_back(&vars);
-	}
+		wstatus = execute_one_builtin(list, &vars, env);
 	else
 	{
 		case_with_pipes(list, &vars, *env);
 		wstatus = waiting(list, &vars);
 	}
 	unlink_heredocs(list, &vars);
-	//printf("exit status = %d\n", wstatus);
 	return (wstatus);
 }
 
