@@ -35,7 +35,7 @@ all: $(NAME)
 
 $(OBJ_PATH)%.o: %.c
 	@mkdir -p $(OBJ_PATH)
-	@$(CC)  -c $< -o $@
+	@$(CC) -c $< -o $@
 
 $(NAME): $(OBJS)
 	@$(CC) -o $(NAME) $(OBJS) -lreadline

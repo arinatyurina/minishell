@@ -25,7 +25,7 @@ void	forking(t_list *list, t_data *vars, char ***env)
 		if (vars->id == 0)
 		{
 			signals_to_default();
-			check_in_files(list, vars, env);
+			check_in_files(list, vars);
 			check_redirections(vars, list);
 			redirect_stream(vars->in_file, vars->out_file);
 			closing_pipes(vars);
@@ -64,7 +64,7 @@ int	execute_one_builtin(t_list *list, t_data *vars, char ***env)
 {
 	int	wstatus;
 
-	check_in_files(list, vars, env);
+	check_in_files(list, vars);
 	check_redirections(vars, list);
 	redirect_stream(vars->in_file, vars->out_file);
 	wstatus = builtin(list->cmd, list, env);
@@ -96,12 +96,3 @@ int	execute(t_list *list, char ***env)
 	unlink_heredocs(list, &vars);
 	return (wstatus);
 }
-
-/*
-коммент перед waitpid
-if (vars.id != 0 && vars.ex != 127) 
-если не ребенок и если не какой то спешл кейс 127. 
-тогда ждем последний процесс, чтобы получить его экзит код и передаем
-{ // может надо убрать про если не ребенок 
-т.к. ребенок сюда точно не дойдет по-хорошему.
-	*/

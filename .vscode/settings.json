@@ -1,6 +1,8 @@
 {
     "files.associations": {
         "minishell.h": "c",
-        "fcntl.h": "c"
+        "fcntl.h": "c",
+        "types.h": "c",
+        "termbits.h": "c"
     }
 }

@@ -58,9 +58,7 @@ void	check_argv_exit(t_list *list, int exit_val, char ***env)
 			ft_putstr_fd(": numeric argument required\n", STDERR_FILENO);
 			exit_val = 2;
 			free_dup_env(*env); //instead of this free all!!!!!!!!!!!!!
-			// free(list->argv); //!!!
-			// free(list); // !!!
-			exit (2);
+			exit (exit_val);
 		}
 	}
 }
@@ -69,7 +67,7 @@ int	ft_exit(t_list *list, char ***env)
 {
 	int	exit_val;
 
-	exit_val = 0; /// EXIT VALUE BY DEFAULT. should it be 0 ?
+	exit_val = EXIT_SUCCESS;
 	//FREE everything... !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	if (list->argv != NULL && list->argv[0] != NULL && list->argv[1] != NULL)
 	{
@@ -78,10 +76,7 @@ int	ft_exit(t_list *list, char ***env)
 		exit (2);
 	}
 	if (list->argv != NULL && list->argv[0] == NULL)
-	{
 		ft_putstr_fd("exit\n", STDOUT_FILENO);
-		exit_val = EXIT_SUCCESS;
-	}
 	else if (list->argv != NULL && list->argv[0] != NULL)
 	{
 		check_argv_exit(list, exit_val, env);
@@ -92,8 +87,6 @@ int	ft_exit(t_list *list, char ***env)
 			exit_val = exit_val % 256;
 	}
 	free_dup_env(*env); //instead of this free all!!!!!!!!
-	// free(list->argv); //!!!
-	// free(list); // !!!
 	free_list(&list);
 	exit (exit_val);
 }
