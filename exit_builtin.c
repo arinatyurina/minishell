@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atyurina <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 13:08:26 by atyurina          #+#    #+#             */
-/*   Updated: 2024/04/03 13:08:27 by atyurina         ###   ########.fr       */
+/*   Updated: 2024/05/07 12:52:10 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,5 +94,6 @@ int	ft_exit(t_list *list, char ***env)
 	free_dup_env(*env); //instead of this free all!!!!!!!!
 	// free(list->argv); //!!!
 	// free(list); // !!!
+	free_list(&list);
 	exit (exit_val);
 }

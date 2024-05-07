@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:31 by rtavabil          #+#    #+#             */
-/*   Updated: 2024/05/03 16:47:04 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/03 18:19:01 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,3 +19,46 @@ int	is_alphanum(char c)
 		return (1);
 	return (0);
 }
+
+int	is_special_str(char *str)
+{
+	if (!ft_strcmp(str, ">"))
+		return (1);
+	if (!ft_strcmp(str, "<"))
+		return (1);
+	if (!ft_strcmp(str, ">>"))
+		return (1);
+	if (!ft_strcmp(str, "<<"))
+		return (1);
+	if (!ft_strcmp(str, "|"))
+		return (1);
+	if (!ft_strcmp(str, "$"))
+		return (1);
+	return (0);
+}
+
+char	*remove_quotes(char *str)
+{
+	int		len;
+	char	*ret;
+
+	len = ft_strlen(str);
+	ret = (char *)malloc((len - 1) * sizeof(char));
+	ft_strlcpy(ret, str + 1, len - 1);
+	//free(str);
+	return (ret);
+}
+
+void	free_double_array(char **array)
+{
+	int	i;
+
+	i = 0;
+	while (array[i])
+	{
+		free(array[i]);
+		i++;
+	}
+	free(array);
+}
+

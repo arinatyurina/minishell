@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 15:39:12 by rtavabil          #+#    #+#             */
-/*   Updated: 2024/05/03 16:32:41 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/03 17:31:44 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ char	**ft_split(char *s)
 char	**get_tokens(char *user_input)
 {
 	char	**tokens;
+
 	if (count_quotes(user_input))
 	{
 		printf("Odd number of  quotes\n");
 		return (NULL);
 	}
-	//printf("%s\n", user_input);
 	tokens = ft_split(user_input);
 	return (tokens);
 }

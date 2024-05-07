@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 18:30:52 by rtavabil          #+#    #+#             */
-/*   Updated: 2024/05/03 16:43:54 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/07 13:14:53 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,24 @@ t_list	*input(char *user_input, char **env_copy)
 	list = NULL;
 	tokens = get_tokens(user_input);
 	list = parse(user_input, tokens, env_copy);
+	free_double_array(tokens);
 	return(list);
+}
+
+void	free_list(t_list **list)
+{
+	if (*list && list)
+	{
+		if ((*list)->cmd != NULL)
+			free((*list)->cmd);
+		if ((*list)->argv != NULL)
+			free_double_array((*list)->argv);
+		if ((*list)->inf != NULL)
+			ft_clear_inf(&(*list)->inf);
+		if ((*list)->outf != NULL)
+			ft_clear_outf(&(*list)->outf);	
+		free(*list);
+	}
 }
 
 int	main(int argc, char **argv, char **env)
@@ -128,8 +145,10 @@ int	main(int argc, char **argv, char **env)
 		//output_list(list);
 		execute(list, &env_copy);
 		//exit_status = exec(&env_copy);
+		free_list(&list);
 	}
 	free(user_input);
-	//free env_copy
+	//free_list(&list);
+	free_dup_env(env_copy);
 	rl_clear_history();
 }

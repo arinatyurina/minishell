@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:34:46 by rtavabil          #+#    #+#             */
-/*   Updated: 2024/04/19 14:31:25 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/07 13:11:21 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_inf	*init_inf(char	*file, char flag)
 	if (!inf)
 		return (NULL);
 	inf->flag = flag;
-	inf->file =	file;
+	inf->file = ft_strdup(file);
 	inf->next = NULL;
 	inf->hd_name = NULL;
 	return (inf);
@@ -48,4 +48,30 @@ void	add_last_inf(t_inf **head, t_inf *inf)
 	}
 	node = ft_lstinf(*head);
 	node->next = inf;
+}
+
+void	ft_del_inf(t_inf *inf)
+{
+	if (!inf)
+		return ;
+	if (inf->file != NULL)
+		free(inf->file);
+	if (inf->hd_name != NULL)
+		free(inf->hd_name);
+	free(inf);
+}
+
+void	ft_clear_inf(t_inf **inf)
+{
+	t_inf	*node;
+
+	if (!inf)
+		return ;
+	while (*inf)
+	{
+		node = (*inf)->next;
+		ft_del_inf(*inf);
+		*inf = node;
+	}
+	inf = NULL;
 }

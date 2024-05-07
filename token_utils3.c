@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 16:54:27 by rtavabil          #+#    #+#             */
-/*   Updated: 2024/05/03 16:32:52 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/03 17:32:07 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,43 +100,5 @@ char	**split_exp(char *s, int *i, char **res)
 {
 	*res++ = ft_substr(s, *i, 1);
 	*i = *i + 1;
-	return (res);
-}
-
-char	**split_special(char *s, int *i, char **res)
-{
-	if (s[*i] == '\'' || s[*i] == '\"')
-		res = split_quotes(s, i, res);
-	else if (s[*i] == '>' || s[*i] == '<')
-		res = split_red(s, i, res);
-	else if (s[*i] == '|')
-		res = split_pipe(s, i, res);
-	else if (s[*i] == '$')
-		res = split_exp(s, i, res);
-	return (res);
-}
-
-char	**split_process(char *s, char **res)
-{
-	int		i;
-	int		start;
-
-	i = 0;
-	start = 0;
-	while (i <= ft_strlen(s) && s[i] != '\0')
-	{
-		while (is_space(s[i]))
-			i++;
-		if (is_special(s[i]))
-			res = split_special(s, &i, res);
-		else if (!is_space(s[i]))
-		{
-			start = (int)i;
-			while (!is_space(s[i]) && s[i] != '\0' && !is_special(s[i]))
-				i++;
-			if (i - start > 0)
-				*res++ = ft_substr(s, start, i - start);
-		}
-	}
 	return (res);
 }

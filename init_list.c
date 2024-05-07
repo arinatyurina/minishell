@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 16:14:01 by rtavabil          #+#    #+#             */
-/*   Updated: 2024/04/23 13:01:40 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/03 17:30:43 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_list	*init_list(char **env_copy)
 
 	list = malloc(sizeof(t_list));
 	if (!list)
-		return(NULL);
+		return (NULL);
 	list->list_id = -1;
 	list->cmd = NULL;
 	list->argv = NULL;

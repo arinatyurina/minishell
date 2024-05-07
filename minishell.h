@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 13:23:44 by rtavabil          #+#    #+#             */
-/*   Updated: 2024/05/03 16:54:53 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/07 13:14:03 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,7 +233,7 @@ void	add_last_outf(t_outf **head, t_outf *outf);
 
 //token expansions
 t_list	*parse(char *user_input, char **tokens, char **env_copy);
-void	parse_string(t_list **list, char *user_input, char **tokens);
+void	parse_string(t_list **list, char *user_input, char **tokens, char **env);
 char	*parse_no_q();
 void	parse_exp(t_list **list, char **tokens, \
 				char *user_input, char **env);
@@ -243,12 +243,36 @@ void	add_next_outf(t_list **list, char *file, char *flag);
 void	add_next_inf(t_list **list, char *file, char *flag);
 int		is_special_str(char *str);
 
+//tokenizer
+char	**split_quotes(char *s, int *i, char **res);
+char	**split_red(char *s, int *i, char **res);
+char	**split_pipe(char *s, int *i, char **res);
+char	**split_exp(char *s, int *i, char **res);
+
 //parsing
-int		is_alphanum(char c);
+int		is_special_str(char *str);
+void	add_next_inf(t_list **list, char *file, char *flag);
+void	add_next_outf(t_list **list, char *file, char *flag);
+void	parse_red(char **tokens, t_list **list);
+char	*remove_quotes(char *str);
+char	**ft_split_str(char *s); // for double quotes, to expand $ signs
+int		get_num_tokens(char **tokens);
+int		get_len_tokens(char	**tokens);
+char	*merge_tokens(int len, char **tokens);
+void	free_double_array(char **array);
+char	*parse_double(char *str, char **env);
+
+//parsing with env
+char	*return_env(char *token, char **env);
+char	**realloc_tokens(char **tokens, int index, char *value);
+char	*get_env_parse(char *word, char **env);
+char	**replace_env(char **tokens, char **env);
 
 
-
-
+//free list
+void	ft_clear_inf(t_inf **inf);
+void	ft_clear_outf(t_outf **outf);
+void	free_list(t_list **list);
 
 // //strings
 // char	*ft_strrchr(char *s, int c);

@@ -6,70 +6,11 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 18:57:12 by rtavabil          #+#    #+#             */
-/*   Updated: 2024/05/03 16:48:53 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/07 12:18:27 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	is_special_str(char *str)
-{
-	if (!ft_strcmp(str, ">"))
-		return (1);
-	if (!ft_strcmp(str, "<"))
-		return (1);
-	if (!ft_strcmp(str, ">>"))
-		return (1);
-	if (!ft_strcmp(str, "<<"))
-		return (1);
-	if (!ft_strcmp(str, "|"))
-		return (1);
-	if (!ft_strcmp(str, "$"))
-		return (1);
-	return (0);
-}
-
-void	add_next_inf(t_list **list, char *file, char *flag)
-{
-	char	inf_flag;
-	t_inf	*infile;
-
-	inf_flag = 'c';
-	if (!ft_strcmp(flag, "<<"))
-		inf_flag = 'h';
-	infile = init_inf(file, inf_flag);
-	add_last_inf(&((*list)->inf), infile);
-}
-
-void	add_next_outf(t_list **list, char *file, char *flag)
-{
-	char	out_flag;
-	t_outf	*outfile;
-
-	out_flag = 'c';
-	if (!ft_strcmp(flag, ">>"))
-		out_flag = 'a';
-	outfile = init_outf(file, out_flag);
-	add_last_outf(&((*list)->outf), outfile);
-}
-
-void	parse_red(char **tokens, t_list **list)
-{
-	if (!ft_strcmp(*tokens, "<") || !ft_strcmp(*tokens, "<<"))
-	{
-		if (!is_special_str(*(tokens + 1)) && *tokens)
-			add_next_inf(list, *(tokens + 1), *tokens);
-		// else
-		// 	redirect_error(); //TODO syntax error near unexpected token [*(tokens + 1)] 
-	}
-	if (!ft_strcmp(*tokens, ">") || !ft_strcmp(*tokens, ">>"))
-	{
-		if (!is_special_str(*(tokens + 1)) && *tokens)
-			add_next_outf(list, *(tokens + 1), *tokens);
-		// else
-		// 	redirect_error(); //TODO syntax error near unexpected token [*(tokens + 1)]
-	}
-}
 
 t_list	*parse_pipe(t_list **list, char **tokens, char **env)
 {
@@ -181,27 +122,6 @@ int	is_next_string_space(char *token, char *user_input)
 // 	return (token);
 // }
 
-// void	temp_set_cmd(t_list **list, char *user_input)
-// {
-// 	char	**res;
-
-// 	res = ft_split_space(user_input, ' ');
-// 	(*list)->cmd = *res;
-// 	(*list)->argv = res + 1;
-// }
-
-void	free_double_array(char **arr)
-{
-	int		i;
-
-	i = 0;
-	while (arr[i])
-	{
-		free(arr[i]);
-		i++;
-	}
-}
-
 void	add_argv(t_list **list, char *token)
 {
 	int		len;
@@ -225,7 +145,7 @@ void	add_argv(t_list **list, char *token)
 			new_argv++;
 			copy_argv++;
 		}
-		*new_argv++ = token;
+		*new_argv++ = ft_strdup(token);
 		*new_argv = NULL;
 		copy_argv = (*list)->argv;
 		free_double_array(copy_argv);
@@ -234,22 +154,35 @@ void	add_argv(t_list **list, char *token)
 	else 
 	{
 		new_argv = (char **)malloc(2 * sizeof(char *));
-		*new_argv = token;
+		*new_argv = ft_strdup(token);
 		*(new_argv + 1)= NULL;
 		(*list)->argv = new_argv;
 	}
 }
 
-void	parse_string(t_list **list, char *user_input, char **tokens)
+void	parse_string(t_list **list, char *user_input, char **tokens, char **env)
 {
-	//TODO
-	//char	*str;
-	if ((*list)->cmd)
+	char	*str;
+
+	if (**tokens == '\"')
 	{
-		add_argv(list, *tokens);
+		str = parse_double(*tokens, env);
+		if ((*list)->cmd)
+		{
+			add_argv(list, str);
+		}
+		else 
+			(*list)->cmd = str;
 	}
 	else 
-		(*list)->cmd = *tokens;
+	{
+		if ((*list)->cmd)
+		{
+			add_argv(list, *tokens);
+		}
+		else 
+			(*list)->cmd = ft_strdup(*tokens);
+	}
 
 	// if (str)
 	// 	argv_add((*list)->argv, str); //TODO
@@ -259,20 +192,20 @@ void	parse_string(t_list **list, char *user_input, char **tokens)
 
 void set_id_list(t_list **list)
 {
- t_list *temp;
- int  i;
+	t_list	*temp;
+	int		i;
 
- if (*list != NULL)
- {
-  temp = *list;
-  i = 1;
-  while (temp)
-  {
-   temp->list_id = i;
-   temp = temp->next;
-   i++;
-  }
- }
+	if (*list != NULL)
+	{
+		temp = *list;
+		i = 1;
+		while (temp)
+		{
+			temp->list_id = i;
+			temp = temp->next;
+			i++;
+		}
+	}
 }
 
 t_list	*parse(char *user_input, char **tokens, char **env_copy)
@@ -300,7 +233,7 @@ t_list	*parse(char *user_input, char **tokens, char **env_copy)
 		// if (!ft_strcmp(*tokens, "$"))
 		// 	parse_exp(&current, tokens, user_input, env_copy);
 		else 
-			parse_string(&current, user_input, tokens);
+			parse_string(&current, user_input, tokens, env_copy);
 		tokens++;
 	}
 	//printf("finished parse()\n");
