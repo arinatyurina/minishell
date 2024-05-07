@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void signals_to_default(void)
+void	signals_to_default(void)
 {
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
@@ -50,7 +50,6 @@ static void	waiting_sig(int signal)
 		ft_putstr_fd("\n", STDOUT_FILENO);
 	else if (signal == SIGQUIT)
 		ft_putstr_fd("Quit (core dumped)\n", STDOUT_FILENO);
-
 }
 
 int	waiting(t_list *list, t_data *vars)
@@ -77,7 +76,8 @@ rl_replace_line clears the input buffer,
 discarding any previous input and clearing the undo list.
 rl_on_new_line notifies Readline that the cursor is on a new line, 
 typically used to ensure proper display of the prompt for new input.
-rl_redisplay requests the GNU Readline library to redisplay the current input line.
+rl_redisplay requests the GNU Readline library 
+to redisplay the current input line.
 This is necessary after modifying the line (such as clearing it)
 to ensure that the changes are reflected on the terminal.
 */

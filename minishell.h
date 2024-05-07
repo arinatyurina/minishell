@@ -59,7 +59,7 @@ typedef struct s_outf
 	char			flag; // 'a' 'c'
 	char			*file;
 	struct s_outf	*next;
-}   t_outf;
+}		t_outf;
 
 // list structure:
 typedef struct s_list
@@ -74,7 +74,7 @@ typedef struct s_list
 	int				hd_nbr;
 }		t_list;
 
-typedef struct sigaction t_sigaction;
+typedef struct sigaction	t_sigaction;
 
 //handle_heredoc:
 void	hd_sigint_handler(int s);
@@ -92,13 +92,10 @@ void	here_doc(t_data *vars, t_list *list, char *name);
 void	unlink_heredocs(t_list *list, t_data *vars);
 
 //signals:
-void 	signals_to_default(void);
+void	signals_to_default(void);
 void	sigint_handler(int sig);
 void	init_signals(void);
 int		waiting(t_list *list, t_data *vars);
-
-// temporary!!!! for freeinf things allocated in main
-void	free_all_main(t_list *list, char ***env);
 
 //get_next_line:
 int		get_next_line(int fd, char **line, char **buffer);
@@ -116,7 +113,7 @@ void	*ft_calloc(int nmemb, int size);
 void	ft_bzero(void *s, int n);
 
 //execution:
-int 	execute(t_list *list, char ***env);
+int		execute(t_list *list, char ***env);
 void	forking(t_list *list, t_data *vars, char ***env);
 void	case_with_pipes(t_list *list, t_data *vars, char **env);
 
@@ -219,14 +216,12 @@ char	**split_process(char *s, char **res);
 char	**ft_split(char *s);
 char	**get_tokens(char *user_input);
 
-
 //strings
 char	*ft_strdup(char *src);
 char	*ft_strnstr(char *big, char *little, int len);
-int		ft_strncmp(char *s1, char *s2, int n);\
+int		ft_strncmp(char *s1, char *s2, int n);
 int		ft_strlcpy(char *dst, char *src, int size);
 int		is_alphanum(char c);
-
 
 //init structs
 t_list	*init_list(char **env_copy);
@@ -241,8 +236,9 @@ void	add_last_outf(t_outf **head, t_outf *outf);
 
 //token expansions
 t_list	*parse(char *user_input, char **tokens, char **env_copy);
-void	parse_string(t_list **list, char *user_input, char **tokens, char **env);
-char	*parse_no_q();
+void	parse_string(t_list **list, char *user_input, \
+					char **tokens, char **env);
+char	*parse_no_q(void);
 void	parse_exp(t_list **list, char **tokens, \
 				char *user_input, char **env);
 t_list	*parse_pipe(t_list **list, char **tokens, char **env);
@@ -283,40 +279,5 @@ int		is_empty_str(char *str);
 void	ft_clear_inf(t_inf **inf);
 void	ft_clear_outf(t_outf **outf);
 void	free_list(t_list **list);
-
-// //strings
-// char	*ft_strrchr(char *s, int c);
-// int		ft_strlen(char *s);
-// int		ft_strncmp(char *s1, char *s2, int n);
-// char	*ft_strstr(char *big, char *little);
-// void	ft_putstr_fd(char *s, int fd);
-// char	*ft_strjoin(char *s1, char *s2);
-// int		ft_isspace(int c);
-// char	*ft_strchr(char *s, int c);
-// char	*ft_strcpy(char *dest, char *src);
-// char	*ft_strdup(char *src);
-// char	*ft_strndup(char *src, int len);
-
-
-
-// //parsing
-// void	prompt(void);
-
-// char	**parse_user_input(char **user_input);
-// char	*parse_argument(char **user_input);
-// int		add_i		in_n--;n_result(char *result, char *temp, int i, int index);
-// int		add_in_argument(char **result, char *temp, int shift);
-// char	*check_result(char *result, int index);
-
-
-// //init
-// // void	args_init(t_args *args);
-
-
-// //utils
-// void	*ft_malloc(int size);endif
-
-// char	**ft_double_realloc(char **src, int size);
-// void	*ft_realloc(char *src, int size);
 
 #endif
