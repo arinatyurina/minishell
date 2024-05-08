@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:30:14 by rtavabil          #+#    #+#             */
-/*   Updated: 2024/05/07 16:42:11 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/08 17:18:58 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ char	*exp_end(char *s)
 			s++;
 		}
 	}
-	return (s);
+	return (s - 1);
 }
 
 char	*count_special(char *s)
@@ -110,8 +110,7 @@ int	ft_count_words(char *s)
 			s = count_special(s);
 			words++;
 		}
-		if (*s != '\0')
-			s++;
+		s++;
 	}
 	return (words);
 }
