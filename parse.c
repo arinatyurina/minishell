@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 18:57:12 by rtavabil          #+#    #+#             */
-/*   Updated: 2024/05/07 19:09:10 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/08 13:05:24 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,38 +35,6 @@ t_list	*parse_pipe(t_list **list, char **tokens, char **env, int *exit_code)
 		return (NULL);
 	}
 	return (*list);
-}
-
-// void	parse_exp(t_list **list, char **tokens, \
-// 				char *user_input, char **env)
-// {
-// 	//check if space after
-// 	//if not concatenate with next 
-// 	//if next is ''
-// 	//expand /0 /a /b /t /n /v /f /r
-// 	return ;
-// }
-
-
-char	*parse_no_q(char *str, char **env, int *exit_code)
-{
-	char	*temp;
-	char	*ret;
-
-	if (*str == '$')
-	{
-		temp = get_env_parse(str, env, exit_code);
-		ret = (char *)malloc(ft_strlen(temp) + 1);
-		ft_strlcpy(ret, temp, ft_strlen(temp) + 1);
-		free(temp);
-		return (ret);
-	}
-	else
-	{
-		ret = ft_strdup(str);
-		return (ret);
-	}
-	return (NULL);
 }
 
 char	*parse_single(char *str)
@@ -196,7 +164,9 @@ t_list	*parse(char *user_input, char **tokens, char **env_copy, int *exit_code)
 		if (!ft_strcmp(*tokens, ">") || !ft_strcmp(*tokens, "<") || \
 			!ft_strcmp(*tokens, ">>") || !ft_strcmp(*tokens, "<<"))
 			{
-				parse_red(tokens, &current);
+				parse_red(tokens, &current, exit_code);
+				if (current == NULL)
+					return (NULL);
 				tokens++;
 			}
 		else if (!ft_strcmp(*tokens, "|"))
@@ -208,9 +178,6 @@ t_list	*parse(char *user_input, char **tokens, char **env_copy, int *exit_code)
 				return (NULL);
 			}
 		}
-		// //make all function return value for outputting errors
-		// if (!ft_strcmp(*tokens, "$"))
-		// 	parse_exp(&current, tokens, user_input, env_copy);
 		else 
 			parse_string(&current, user_input, tokens, exit_code);
 		tokens++;
@@ -218,41 +185,3 @@ t_list	*parse(char *user_input, char **tokens, char **env_copy, int *exit_code)
 	set_id_list(&list);
 	return (list);
 }
-
-
-// char	*return_string(t_list **list, char *user_input, char ***tokens)
-// {
-// 	char	*token;
-// 	char	**temp;
-
-// 	temp = *tokens;
-// 	token = NULL;
-// 	if (**temp == '\"')
-// 	{
-// 		printf("token is %s\n", *temp);
-// 		token = parse_double(*temp, (*list)->env);
-// 	}
-// 	else if (*user_input == '\'')
-// 		token = parse_single();
-// 	else
-// 		token = parse_no_q();
-// 	// if ((*tokens + 1) && !is_special_str(*(*tokens + 1)))
-// 	// {
-// 	// 	temp = *tokens + 1;
-// 	// 	next = return_string(list, user_input, &temp);
-// 	// 	ptr = ft_strnstr(user_input, next, ft_strlen(next));
-// 	// 	if (is_space(*(ptr + ft_strlen(*(*tokens + 1)))))
-// 	// 	{
-// 	// 		next = return_string(list, user_input, tokens);
-// 	// 		(*tokens)++;
-			
-// 	// 		//increment tokens
-// 	// 		//concatenate with token
-// 	// 	}
-// 	// }
-// 	// //check if it has space in user input
-// 	// //if not and if next token is string -> concatenate with next
-
-// 	// //check $ sign
-// 	return (token);
-// }

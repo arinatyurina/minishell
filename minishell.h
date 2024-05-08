@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 13:23:44 by rtavabil          #+#    #+#             */
-/*   Updated: 2024/05/07 19:48:11 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/08 13:02:25 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -242,7 +242,7 @@ char	*parse_no_q(char *str, char **env, int *exit_code);
 void	parse_exp(t_list **list, char **tokens, \
 				char *user_input, char **env);
 t_list	*parse_pipe(t_list **list, char **tokens, char **env, int *exit_code);
-void	parse_red(char **tokens, t_list **list);
+void	parse_red(char **tokens, t_list **list, int *exit_code);
 void	add_next_outf(t_list **list, char *file, char *flag);
 void	add_next_inf(t_list **list, char *file, char *flag);
 int		is_special_str(char *str);
@@ -257,7 +257,6 @@ char	**split_exp(char *s, int *i, char **res);
 int		is_special_str(char *str);
 void	add_next_inf(t_list **list, char *file, char *flag);
 void	add_next_outf(t_list **list, char *file, char *flag);
-void	parse_red(char **tokens, t_list **list);
 char	*remove_quotes(char *str);
 char	**ft_split_str(char *s); // for double quotes, to expand $ signs
 int		get_num_tokens(char **tokens);

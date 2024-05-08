@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atyurina <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 15:29:17 by atyurina          #+#    #+#             */
-/*   Updated: 2024/05/07 15:29:21 by atyurina         ###   ########.fr       */
+/*   Updated: 2024/05/08 13:07:21 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int	ft_strcmp(char *s1, char *s2)
 {
 	int	i;
 
+	if (!s1 || !s2)
+		return (1);
 	i = 0;
 	while (s1[i] && s2[i] && (s1[i] == s2[i]))
 		i++;

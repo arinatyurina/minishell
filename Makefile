@@ -6,7 +6,7 @@
 #    By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/28 13:49:25 by rtavabil          #+#    #+#              #
-#    Updated: 2024/05/07 12:23:41 by rtavabil         ###   ########.fr        #
+#    Updated: 2024/05/08 12:38:15 by rtavabil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,8 @@ SRC := tokens.c token_utils.c token_utils2.c \
 		env_builtin.c exit_builtin.c pipes_managing.c \
 		handle_signals.c handle_heredoc.c handle_heredoc2.c \
 		parse_red.c parse_utils.c token_utils4.c \
-		parse_env.c parse_double.c parse_double_utils.c 
+		parse_env.c parse_double.c parse_double_utils.c \
+		parse_no_q.c
 OBJ := $(SRC:%.c=%.o)
 
 CC := cc -g

@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 17:05:37 by rtavabil          #+#    #+#             */
-/*   Updated: 2024/05/03 17:06:40 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/08 13:10:38 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,20 +36,30 @@ void	add_next_outf(t_list **list, char *file, char *flag)
 	add_last_outf(&((*list)->outf), outfile);
 }
 
-void	parse_red(char **tokens, t_list **list)
+void	parse_red(char **tokens, t_list **list, int *exit_code)
 {
 	if (!ft_strcmp(*tokens, "<") || !ft_strcmp(*tokens, "<<"))
 	{
-		if (!is_special_str(*(tokens + 1)) && *tokens)
+		if (!is_special_str(*(tokens + 1)) && *tokens && *(tokens + 1))
 			add_next_inf(list, *(tokens + 1), *tokens);
-		// else
-		// 	redirect_error(); //TODO syntax error near unexpected token [*(tokens + 1)] 
+		else
+		{
+			*exit_code = 1;
+			ft_putstr_fd("Redirect error, encouneterd special symbol\n", 2);
+			free_list(list);
+			list = NULL;
+		}
 	}
 	if (!ft_strcmp(*tokens, ">") || !ft_strcmp(*tokens, ">>"))
 	{
-		if (!is_special_str(*(tokens + 1)) && *tokens)
+		if (!is_special_str(*(tokens + 1)) && *tokens && *(tokens + 1))
 			add_next_outf(list, *(tokens + 1), *tokens);
-		// else
-		// 	redirect_error(); //TODO syntax error near unexpected token [*(tokens + 1)]
+		else
+		{
+			*exit_code = 1;
+			ft_putstr_fd("Redirect error, encouneterd special symbol\n", 2);
+			free_list(list);
+			list = NULL;
+		}
 	}
 }

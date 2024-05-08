@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 18:08:43 by rtavabil          #+#    #+#             */
-/*   Updated: 2024/05/07 20:13:41 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/08 13:00:15 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ char	*return_env(char *token, char **env, int *exit_code)
 		{
 			value = (char *)malloc((ft_strlen(*env + len + 1) + 1) * sizeof(char));
 			ft_strlcpy(value, *env + len + 1, ft_strlen(*env + len + 1) + 1);
-		//	value = *env + len + 1;
 		}
 		else if (!ft_strncmp("$?", token, len + 1))
 			value = ft_itoa(*exit_code);
