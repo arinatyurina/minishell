@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 13:23:44 by rtavabil          #+#    #+#             */
-/*   Updated: 2024/05/08 19:19:43 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/08 19:42:51 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,9 +235,10 @@ t_outf	*ft_lstoutf(t_outf *outf);
 void	add_last_outf(t_outf **head, t_outf *outf);
 
 //token expansions
-t_list	*parse(char *user_input, char **tokens, char **env_copy, int *exit_code);
+t_list	*parse(char *user_input, char **tokens, \
+				char **env_copy, int *exit_code);
 void	parse_string(t_list **list, char *user_input, \
-					char **tokens,  int *exit_code);
+					char **tokens, int *exit_code);
 char	*parse_no_q(char *str, char **env, int *exit_code);
 void	parse_exp(t_list **list, char **tokens, \
 				char *user_input, char **env);
@@ -266,7 +267,7 @@ void	free_double_array(char **array);
 char	*parse_double(char *str, char **env, int *exit_code);
 char	*parse_single(char *str);
 char	**preparse(char *user_input, char **tokens, \
-					 char **env, int *exit_code);
+					char **env, int *exit_code);
 void	add_argv(t_list **list, char *token);
 
 //parsing with env

@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 18:08:43 by rtavabil          #+#    #+#             */
-/*   Updated: 2024/05/08 13:00:15 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/08 19:43:40 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ char	*return_env(char *token, char **env, int *exit_code)
 		env_word = *env;
 		if (!ft_strncmp(*env, token + 1, len) && *(env_word + len) == '=')
 		{
-			value = (char *)malloc((ft_strlen(*env + len + 1) + 1) * sizeof(char));
+			value = (char *)malloc((ft_strlen(*env + len + 1) \
+						+ 1) * sizeof(char));
 			ft_strlcpy(value, *env + len + 1, ft_strlen(*env + len + 1) + 1);
 		}
 		else if (!ft_strncmp("$?", token, len + 1))
@@ -87,7 +88,7 @@ char	**replace_env(char **tokens, char **env, int *exit_code)
 
 	num = get_num_tokens(tokens);
 	i = 0;
-	while(i < num)
+	while (i < num)
 	{
 		token = tokens[i];
 		if (*token == '$' && (is_alphanum(*(token + 1)) || *(token + 1) == '?'))

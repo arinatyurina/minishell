@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 13:45:34 by rtavabil          #+#    #+#             */
-/*   Updated: 2024/05/08 18:45:43 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/08 19:50:16 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*preparse_string(char *str, char **env, int *exit_code)
 		ret = parse_double(str, env, exit_code);
 	else if (*str == '\'')
 		ret = parse_single(str);
-	else 
+	else
 		ret = parse_no_q(str, env, exit_code);
 	return (ret);
 }
@@ -52,9 +52,11 @@ char	*parse_cat(char *first, char *second, char **env, int *exit_code)
 
 	parsed_first = preparse_string(first, env, exit_code);
 	parsed_second = preparse_string(second, env, exit_code);
-	final = (char *)ft_calloc((ft_strlen(parsed_first) + ft_strlen(parsed_second) + 1), sizeof(char));
+	final = (char *)ft_calloc((ft_strlen(parsed_first) + \
+				ft_strlen(parsed_second) + 1), sizeof(char));
 	ft_strlcpy(final, parsed_first, ft_strlen(parsed_first) + 1);
-	ft_strlcpy(final + ft_strlen(parsed_first), parsed_second, ft_strlen(parsed_second) + 1);
+	ft_strlcpy(final + ft_strlen(parsed_first), parsed_second, \
+				ft_strlen(parsed_second) + 1);
 	final = make_single_q(&final);
 	free(parsed_first);
 	free(parsed_second);
@@ -81,7 +83,7 @@ char	**realloc_t_p(char **tokens, int index, char *value)
 	while (i < size - 1)
 	{
 		if (tokens[i + 1] == NULL)
-			break;
+			break ;
 		new[i] = ft_strdup(tokens[i + 1]);
 		i++;
 	}
@@ -91,14 +93,14 @@ char	**realloc_t_p(char **tokens, int index, char *value)
 }
 
 char	**preparse(char *user_input, char **tokens, \
-					 char **env, int *exit_code)
+					char **env, int *exit_code)
 {
 	int		i;
 	int		index;
 	char	*ptr;
 	char	*new_token;
 	int		num;
-	
+
 	i = 1;
 	num = get_num_tokens(tokens);
 	while (i < num)
@@ -107,7 +109,8 @@ char	**preparse(char *user_input, char **tokens, \
 			break ;
 		if (!is_special_str(tokens[i]))
 		{
-			ptr = ft_strnstr(user_input, tokens[i], ft_strlen(user_input));
+			ptr = ft_strnstr(user_input, tokens[i], \
+							ft_strlen(user_input));
 			if (!is_space(*(ptr - 1)))
 			{
 				if (!is_special_str(tokens[i - 1]))

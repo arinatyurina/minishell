@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 18:57:12 by rtavabil          #+#    #+#             */
-/*   Updated: 2024/05/08 19:19:11 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/08 19:51:43 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ char	*parse_single(char *str)
 	return (new);
 }
 
-void	parse_string(t_list **list, char *user_input, char **tokens,  int *exit_code)
+void	parse_string(t_list **list, char *user_input, \
+						char **tokens, int *exit_code)
 {
 	char	*str;
 
@@ -31,7 +32,7 @@ void	parse_string(t_list **list, char *user_input, char **tokens,  int *exit_cod
 		{
 			add_argv(list, str);
 		}
-		else 
+		else
 			(*list)->cmd = str;
 		free(str);
 	}
@@ -42,24 +43,24 @@ void	parse_string(t_list **list, char *user_input, char **tokens,  int *exit_cod
 		{
 			add_argv(list, str);
 		}
-		else 
+		else
 			(*list)->cmd = str;
 		free(str);
 	}
-	else 
+	else
 	{
 		str = parse_no_q(*tokens, (*list)->env, exit_code);
 		if ((*list)->cmd)
 		{
 			add_argv(list, str);
 		}
-		else 
+		else
 			(*list)->cmd = ft_strdup(str);
 		free(str);
 	}
 }
 
-void set_id_list(t_list **list)
+void	set_id_list(t_list **list)
 {
 	t_list	*temp;
 	int		i;
@@ -88,12 +89,12 @@ t_list	*parse(char *user_input, char **tokens, char **env_copy, int *exit_code)
 	{
 		if (!ft_strcmp(*tokens, ">") || !ft_strcmp(*tokens, "<") || \
 			!ft_strcmp(*tokens, ">>") || !ft_strcmp(*tokens, "<<"))
-			{
-				parse_red(tokens, &current, exit_code);
-				if (current == NULL)
-					return (NULL);
-				tokens++;
-			}
+		{
+			parse_red(tokens, &current, exit_code);
+			if (current == NULL)
+				return (NULL);
+			tokens++;
+		}
 		else if (!ft_strcmp(*tokens, "|"))
 		{
 			current = parse_pipe(&current, tokens + 1, env_copy, exit_code);
@@ -103,7 +104,7 @@ t_list	*parse(char *user_input, char **tokens, char **env_copy, int *exit_code)
 				return (NULL);
 			}
 		}
-		else 
+		else
 			parse_string(&current, user_input, tokens, exit_code);
 		tokens++;
 	}

@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 13:59:14 by rtavabil          #+#    #+#             */
-/*   Updated: 2024/04/22 15:13:55 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/08 19:46:03 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 char	*ft_strdup(char *src)
 {
 	char	*result;
-	int	i;
+	int		i;
 
 	i = 0;
-	result = (char*)malloc(sizeof(char) * (ft_strlen(src) + 1));
+	result = (char *)malloc(sizeof(char) * (ft_strlen(src) + 1));
 	if (!result)
 		return (NULL);
 	while (*src)
@@ -64,7 +64,7 @@ void	*ft_memcpy(void *dest, void *src, int n)
 {
 	char	*new_dest;
 	char	*new_src;
-	int	i;
+	int		i;
 
 	new_dest = (char *)dest;
 	new_src = (char *)src;
@@ -92,16 +92,4 @@ int	ft_strlcpy(char *dst, char *src, int size)
 		dst[size - 1] = '\0';
 	}
 	return (src_len);
-}
-
-int	ft_strlcat(char *dst, char *src, int size)
-{
-	int	dst_len;
-	int	src_len;
-
-	dst_len = ft_strlen(dst);
-	src_len = ft_strlen(src);
-	while (*dst)
-		dst++;
-	return (dst_len + ft_strlcpy(dst, src, size + dst_len));
 }

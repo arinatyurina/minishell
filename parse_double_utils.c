@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 18:00:59 by rtavabil          #+#    #+#             */
-/*   Updated: 2024/05/07 14:17:54 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/08 19:40:53 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	get_num_tokens(char **tokens)
 	return (num);
 }
 
-int		get_len_tokens(char	**tokens)
+int	get_len_tokens(char	**tokens)
 {
 	char	**copy;
 	int		len;

@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   functions.c                                        :+:      :+:    :+:   */
+/*   strings2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/28 13:46:10 by rtavabil          #+#    #+#             */
-/*   Updated: 2024/05/08 19:48:09 by rtavabil         ###   ########.fr       */
+/*   Created: 2024/05/08 19:45:04 by rtavabil          #+#    #+#             */
+/*   Updated: 2024/05/08 19:45:25 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	*ft_malloc(int size)
+int	ft_strlcat(char *dst, char *src, int size)
 {
-	void	*ptr;
+	int	dst_len;
+	int	src_len;
 
-	ptr = malloc(size);
-	if (ptr == NULL)
-		ft_putstr_fd("Malloc did not work correctly\n", 2);
-	return (ptr);
+	dst_len = ft_strlen(dst);
+	src_len = ft_strlen(src);
+	while (*dst)
+		dst++;
+	return (dst_len + ft_strlcpy(dst, src, size + dst_len));
 }

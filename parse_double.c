@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 14:21:34 by rtavabil          #+#    #+#             */
-/*   Updated: 2024/05/07 18:05:59 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/08 19:41:25 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ char	*parse_double(char *str, char **env, int *exit_code)
 	res = ft_split_str(str);
 	res = replace_env(res, env, exit_code);
 	num = get_len_tokens(res);
-	final =	merge_tokens(num, res);
+	final = merge_tokens(num, res);
 	free(str);
 	free_double_array(res);
 	return (final);
