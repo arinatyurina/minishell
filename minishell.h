@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 13:23:44 by rtavabil          #+#    #+#             */
-/*   Updated: 2024/05/08 17:25:19 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/08 19:19:43 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -267,6 +267,7 @@ char	*parse_double(char *str, char **env, int *exit_code);
 char	*parse_single(char *str);
 char	**preparse(char *user_input, char **tokens, \
 					 char **env, int *exit_code);
+void	add_argv(t_list **list, char *token);
 
 //parsing with env
 char	*return_env(char *token, char **env, int *exit_code);

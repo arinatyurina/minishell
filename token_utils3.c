@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 16:54:27 by rtavabil          #+#    #+#             */
-/*   Updated: 2024/05/07 16:01:13 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/08 19:10:13 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,9 +100,9 @@ char	**split_exp(char *s, int *i, char **res)
 {
 	int		end;
 	int		j;
-	
+
 	j = 1;
-	while(s[*i + j])
+	while (s[*i + j])
 	{
 		if (is_space(s[*i + j]) || is_special(s[*i + j]))
 			break ;

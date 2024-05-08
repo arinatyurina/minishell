@@ -6,68 +6,11 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 18:30:52 by rtavabil          #+#    #+#             */
-/*   Updated: 2024/05/08 18:43:31 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/08 19:06:52 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	print_inf(t_list *list)
-{
-	t_inf	*inf;
-
-	inf = list->inf;
-	while (inf)
-	{
-		printf("|%s %c|", inf->file, inf->flag);
-		inf = inf->next;
-	}
-	printf("\n");
-}
-
-void	print_outf(t_list *list)
-{
-	t_outf	*outf;
-
-	outf = list->outf;
-	while (outf)
-	{
-		printf("|%s %c|", outf->file, outf->flag);
-		outf = outf->next;
-	}
-	printf("\n");
-}
-
-void	output_list(t_list *list)
-{
-	char	**argv;
-	int		i;
-	t_list	*copy;
-
-	i = 0;
-	copy = list;
-	while (copy)
-	{
-		printf("___________________________\n");
-		printf("LIST NUMBER %d\n", i);
-		printf("cmd = %s\n", copy->cmd);
-		printf("argv = ");
-		argv = copy->argv;
-		while (*argv)
-		{
-			printf("%s ", *argv);
-			argv++;
-		}
-		printf("\n");
-		printf("inf are ");
-		print_inf(copy);
-		printf("outf are ");
-		print_outf(copy);
-		copy = copy->next;
-		i++;
-		printf("___________________________\n");
-	}
-}
 
 char	**duplicate_env(char **env)
 {
@@ -84,7 +27,7 @@ char	**duplicate_env(char **env)
 	{
 		dup_env[i] = ft_strdup(env[i]);
 		if (dup_env[i] == NULL)
-			return (NULL);//malloc error
+			return (NULL);
 		i++;
 	}
 	dup_env[i] = NULL;
@@ -109,38 +52,29 @@ t_list	*input(char *user_input, char **env_copy, int *exit_code)
 	free_double_array(tokens);
 	if (list == NULL)
 		return (NULL);
-	return(list);
+	return (list);
 }
 
-void	free_list_node(t_list **list)
+void	prompt(char **user_input, char ***env_copy, \
+				t_list **list, int *exit_status)
 {
-	if (*list && list)
+	while (true)
 	{
-		if ((*list)->cmd != NULL)
-			free((*list)->cmd);
-		if ((*list)->argv != NULL)
-			free_double_array((*list)->argv);
-		if ((*list)->inf != NULL)
-			ft_clear_inf(&(*list)->inf);
-		if ((*list)->outf != NULL)
-			ft_clear_outf(&(*list)->outf);	
-		free(*list);
+		*user_input = readline("minishell:~$ ");
+		if (*user_input == NULL)
+		{
+			ft_putstr_fd("exit\n", STDOUT_FILENO);
+			break ;
+		}
+		if (!ft_strcmp(*user_input, "") || is_empty_str(*user_input))
+			continue ;
+		add_history(*user_input);
+		*list = input(*user_input, *env_copy, exit_status);
+		if (list == NULL)
+			continue ;
+		*exit_status = execute(*list, env_copy);
+		free_list(list);
 	}
-}
-
-void	free_list(t_list **list)
-{
-	t_list *node;
-
-	if (!list)
-		return ;
-	while (*list)
-	{
-		node = (*list)->next;
-		free_list_node(list);
-		*list = node;
-	}
-	list = NULL;
 }
 
 int	main(int argc, char **argv, char **env)
@@ -153,23 +87,7 @@ int	main(int argc, char **argv, char **env)
 	init_signals();
 	env_copy = duplicate_env(env);
 	exit_status = 0;
-	while (true)
-	{
-		user_input = readline("minishell:~$ ");
-		if (user_input == NULL)
-		{
-			ft_putstr_fd("exit\n", STDOUT_FILENO);
-			break;
-		}
-		if (!ft_strcmp(user_input, "") || is_empty_str(user_input))
-			continue;
-		add_history(user_input);
-		list = input(user_input, env_copy, &exit_status);
-		if (list == NULL)
-			continue ;
-		exit_status = execute(list, &env_copy);
-		free_list(&list);
-	}
+	prompt(&user_input, &env_copy, &list, &exit_status);
 	free(user_input);
 	free_dup_env(env_copy);
 	rl_clear_history();

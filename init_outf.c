@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 16:11:06 by rtavabil          #+#    #+#             */
-/*   Updated: 2024/05/07 13:13:53 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/08 19:06:12 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,3 @@ void	ft_clear_outf(t_outf **outf)
 	}
 	outf = NULL;
 }
-

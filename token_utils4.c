@@ -6,11 +6,38 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 17:27:52 by rtavabil          #+#    #+#             */
-/*   Updated: 2024/05/03 17:32:18 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/08 19:09:27 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	*ft_substr(char *s, int start, int len)
+{
+	char	*subs;
+	int		i;
+
+	if (start >= ft_strlen(s))
+	{
+		subs = ft_calloc(1, sizeof(char));
+		if (!subs)
+			return (NULL);
+		return (subs);
+	}
+	if (ft_strlen(s) - start < len)
+		len = ft_strlen(s) - start;
+	subs = (char *)malloc((len + 1) * sizeof(char));
+	if (!subs)
+		return ((void *)0);
+	i = 0;
+	while (i < len && s[start + i])
+	{
+		subs[i] = s[start + i];
+		i++;
+	}
+	subs[i] = '\0';
+	return (subs);
+}
 
 char	**split_special(char *s, int *i, char **res)
 {

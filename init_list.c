@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 16:14:01 by rtavabil          #+#    #+#             */
-/*   Updated: 2024/05/03 17:30:43 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/08 19:06:42 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,35 @@ void	add_last_list(t_list **head, t_list *last)
 	}
 	node = ft_lstlast(*head);
 	node->next = last;
+}
+
+void	free_list_node(t_list **list)
+{
+	if (*list && list)
+	{
+		if ((*list)->cmd != NULL)
+			free((*list)->cmd);
+		if ((*list)->argv != NULL)
+			free_double_array((*list)->argv);
+		if ((*list)->inf != NULL)
+			ft_clear_inf(&(*list)->inf);
+		if ((*list)->outf != NULL)
+			ft_clear_outf(&(*list)->outf);
+		free(*list);
+	}
+}
+
+void	free_list(t_list **list)
+{
+	t_list	*node;
+
+	if (!list)
+		return ;
+	while (*list)
+	{
+		node = (*list)->next;
+		free_list_node(list);
+		*list = node;
+	}
+	list = NULL;
 }
