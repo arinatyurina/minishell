@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 19:12:27 by rtavabil          #+#    #+#             */
-/*   Updated: 2024/05/08 19:14:06 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/08 20:26:44 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ t_list	*parse_pipe(t_list **list, char **tokens, char **env, int *exit_code)
 {
 	t_list	*next;
 
-	if ((*list)->cmd && *tokens != NULL)
+	if (((*list)->cmd && *tokens != NULL) || \
+		((*list)->inf != NULL) || ((*list)->outf != NULL))
 	{
 		next = init_list(env);
 		add_last_list(list, next);
