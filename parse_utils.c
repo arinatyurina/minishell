@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:31 by rtavabil          #+#    #+#             */
-/*   Updated: 2024/05/07 14:12:00 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/08 14:13:49 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ char	*remove_quotes(char *str)
 	len = ft_strlen(str);
 	ret = (char *)malloc((len - 1) * sizeof(char));
 	ft_strlcpy(ret, str + 1, len - 1);
-	//free(str);
 	return (ret);
 }
 
