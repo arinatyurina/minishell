@@ -86,6 +86,8 @@ int	execute(t_list *list, char ***env)
 		unlink_heredocs(list, &vars);
 		return (130);
 	}
+	if (list->cmd == NULL && list->next == NULL)
+		return (check_in_files_null(list, &vars));
 	if (one_cmd_builtin(list->cmd, &vars) == 1)
 		wstatus = execute_one_builtin(list, &vars, env);
 	else

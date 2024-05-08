@@ -133,6 +133,7 @@ void	check_in_files(t_list *list, t_data *vars);
 void	open_inf(t_list *list, t_data *vars);
 void	check_out_files(t_list *list, t_data *vars);
 void	open_outf(t_list *list, t_data *vars);
+int		check_in_files_null(t_list *list, t_data *vars);
 
 //check_cmd_access:
 void	checking_access(t_data *vars, t_list *list, char **env);
