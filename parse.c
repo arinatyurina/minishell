@@ -26,38 +26,18 @@ void	parse_string(t_list **list, char *user_input, \
 	char	*str;
 
 	if (**tokens == '\"')
-	{
 		str = parse_double(*tokens, (*list)->env, exit_code);
-		if ((*list)->cmd)
-		{
-			add_argv(list, str);
-		}
-		else
-			(*list)->cmd = str;
-		free(str);
-	}
 	else if (**tokens == '\'')
-	{
 		str = parse_single(*tokens);
-		if ((*list)->cmd)
-		{
-			add_argv(list, str);
-		}
-		else
-			(*list)->cmd = str;
-		free(str);
+	else
+		str = parse_no_q(*tokens, (*list)->env, exit_code);
+	if ((*list)->cmd)
+	{
+		add_argv(list, str);
 	}
 	else
-	{
-		str = parse_no_q(*tokens, (*list)->env, exit_code);
-		if ((*list)->cmd)
-		{
-			add_argv(list, str);
-		}
-		else
-			(*list)->cmd = ft_strdup(str);
-		free(str);
-	}
+		(*list)->cmd = ft_strdup(str);
+	free(str);
 }
 
 void	set_id_list(t_list **list)
