@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 18:57:12 by rtavabil          #+#    #+#             */
-/*   Updated: 2024/05/08 19:51:43 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/09 14:02:44 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,28 @@ void	set_id_list(t_list **list)
 	}
 }
 
+t_list	*parsing(t_list *list, char **tokens, char **env_copy, int *exit_code)
+{
+	t_list	*current;
+
+	current = list;
+	if (!ft_strcmp(*tokens, ">") || !ft_strcmp(*tokens, "<") || \
+		!ft_strcmp(*tokens, ">>") || !ft_strcmp(*tokens, "<<"))
+	{
+		parse_red(tokens, &current, exit_code);
+		if (current == NULL)
+			return (NULL);
+		tokens++;
+	}
+	else if (!ft_strcmp(*tokens, "|"))
+	{
+		current = parse_pipe(&current, tokens + 1, env_copy, exit_code);
+		if (current == NULL)
+			return (NULL);
+	}
+	return (current);
+}
+
 t_list	*parse(char *user_input, char **tokens, char **env_copy, int *exit_code)
 {
 	t_list	*list;
@@ -68,16 +90,10 @@ t_list	*parse(char *user_input, char **tokens, char **env_copy, int *exit_code)
 	while (*tokens)
 	{
 		if (!ft_strcmp(*tokens, ">") || !ft_strcmp(*tokens, "<") || \
-			!ft_strcmp(*tokens, ">>") || !ft_strcmp(*tokens, "<<"))
+			!ft_strcmp(*tokens, ">>") || !ft_strcmp(*tokens, "<<") || \
+			!ft_strcmp(*tokens, "|"))
 		{
-			parse_red(tokens, &current, exit_code);
-			if (current == NULL)
-				return (NULL);
-			tokens++;
-		}
-		else if (!ft_strcmp(*tokens, "|"))
-		{
-			current = parse_pipe(&current, tokens + 1, env_copy, exit_code);
+			current = parsing(list, tokens, env_copy, exit_code);
 			if (current == NULL)
 			{
 				free_list(&list);

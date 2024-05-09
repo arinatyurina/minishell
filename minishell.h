@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 13:23:44 by rtavabil          #+#    #+#             */
-/*   Updated: 2024/05/08 19:42:51 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/09 13:44:49 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,7 @@ void	open_inf(t_list *list, t_data *vars);
 void	check_out_files(t_list *list, t_data *vars);
 void	open_outf(t_list *list, t_data *vars);
 int		check_in_files_null(t_list *list, t_data *vars);
+int		open_inf_null(t_list *list, t_data *vars);
 
 //check_cmd_access:
 void	checking_access(t_data *vars, t_list *list, char **env);

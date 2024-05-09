@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_files.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atyurina <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 14:10:56 by atyurina          #+#    #+#             */
-/*   Updated: 2024/04/12 14:10:57 by atyurina         ###   ########.fr       */
+/*   Updated: 2024/05/09 13:43:28 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ void	check_in_files(t_list *list, t_data *vars)
 	check_out_files(list, vars);
 }
 
+/*
 int	open_inf_null(t_list *list, t_data *vars)
 {
 	if (list->inf->flag == 'h')
@@ -105,24 +106,18 @@ int	open_inf_null(t_list *list, t_data *vars)
 	}
 	return (0);
 }
+*/
 
-int	check_in_files_null(t_list *list, t_data *vars)
+int	open_inf_null(t_list *list, t_data *vars)
 {
-	int		in_n;
-	t_inf	*copy;
-
-	copy = list->inf;
-	in_n = ft_infsize(list->inf);
-	while (in_n != 0 && list->inf != NULL)
+	if (list->inf->flag == 'h')
+		vars->in_file = open(list->inf->hd_name, O_RDONLY);
+	else
+		vars->in_file = open(list->inf->file, O_RDONLY);
+	if (vars->in_file == -1)
 	{
-		if (open_inf_null(list, vars) == 1)
-			return (1);
-		if (in_n - 1 != 0)
-			close(vars->in_file);
-		in_n--;
-		list->inf = list->inf->next;
+		perror(list->inf->file);
+		return (1);
 	}
-	list->inf = copy;
-	check_out_files(list, vars);
 	return (0);
 }

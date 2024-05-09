@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 13:45:34 by rtavabil          #+#    #+#             */
-/*   Updated: 2024/05/08 19:50:16 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/09 14:13:11 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,10 +96,9 @@ char	**preparse(char *user_input, char **tokens, \
 					char **env, int *exit_code)
 {
 	int		i;
-	int		index;
+	int		num;
 	char	*ptr;
 	char	*new_token;
-	int		num;
 
 	i = 1;
 	num = get_num_tokens(tokens);
@@ -107,19 +106,15 @@ char	**preparse(char *user_input, char **tokens, \
 	{
 		if (tokens[i] == NULL)
 			break ;
-		if (!is_special_str(tokens[i]))
+		ptr = ft_strnstr(user_input, tokens[i], \
+						ft_strlen(user_input));
+		if (!is_special_str(tokens[i]) && (!is_space(\
+			*(ptr - 1))) && (!is_special_str(tokens[i - 1])))
 		{
-			ptr = ft_strnstr(user_input, tokens[i], \
-							ft_strlen(user_input));
-			if (!is_space(*(ptr - 1)))
-			{
-				if (!is_special_str(tokens[i - 1]))
-				{
-					new_token = parse_cat(tokens[i - 1], tokens[i], env, exit_code);
-					tokens = realloc_t_p(tokens, i - 1, new_token);
-					i--;
-				}
-			}
+			new_token = parse_cat(tokens[i - 1], \
+								tokens[i], env, exit_code);
+			tokens = realloc_t_p(tokens, i - 1, new_token);
+			i--;
 		}
 		i++;
 	}
