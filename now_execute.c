@@ -61,16 +61,22 @@ char	**ft_executable(char *cmd, char **argv)
 		len++;
 	exec = (char **)ft_malloc((len + 2) * sizeof(char *));
 	exec[0] = ft_strdup_ex(cmd);
-	//free(cmd);
 	while (argv != NULL && argv[j] != NULL)
 	{
 		exec[i] = ft_strdup_ex(argv[j]);
 		i++;
 		j++;
-	//	free(argv[j]);
 	}
 	exec[i] = NULL;
 	return (exec);
+}
+
+static void	free_list_pipes_env(t_data *vars, t_list *list, char ***env)
+{
+	free_pipes(vars);
+	free_list(&list);
+	free_dup_env(*env);
+	rl_clear_history();
 }
 
 // 84 line: чистим же среду при форках? т.к. это child, чтобы не было ликов
@@ -81,18 +87,13 @@ void	now_execute(t_data *vars, t_list *list, char ***env)
 
 	if (list->cmd == NULL)
 	{
-		ft_putstr_fd("ya zdes\n", 2);
-		free_pipes(vars);
-		free_list(&list);
-		free_dup_env(*env);
+		free_list_pipes_env(vars, list, env);
 		exit (1);
 	}
 	return_builtin = builtin(list->cmd, list, env);
 	if (return_builtin != 1042)
 	{
-		free_pipes(vars);
-		free_list(&list);
-		free_dup_env(*env);
+		free_list_pipes_env(vars, list, env);
 		exit (return_builtin);
 	}
 	checking_access(vars, list, *env);
@@ -101,15 +102,14 @@ void	now_execute(t_data *vars, t_list *list, char ***env)
 	if (execve(vars->path, exec, *env) == -1)
 	{
 		perror(vars->path);
-		free_pipes(vars);
+		free_list_pipes_env(vars, list, env);
 		free(vars->path);
-		free_list(&list);
-		free_dup_env(*env);
-		rl_clear_history();
 		free_double_array(exec);
 		exit (1);
 	}
 }
+
+	//	rl_clear_history();
 
 // cmd1 | cmd2 | cmd3
 // executed in order

@@ -65,7 +65,7 @@ void	open_inf(t_list *list, t_data *vars, t_inf *copy)
 	if (vars->in_file == -1)
 	{
 		perror(list->inf->file);
-		list-> inf = copy;
+		list->inf = copy;
 		free_list(&list);
 		free_pipes(vars);
 		exit (1);

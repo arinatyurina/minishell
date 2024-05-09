@@ -55,10 +55,10 @@ t_list	*input(char *user_input, char **env_copy, int *exit_code)
 	return (list);
 }
 
-void	prompt(char **user_input, char ***env_copy, \
- int *exit_status)
+void	prompt(char **user_input, char ***env_copy, int *exit_status)
 {
 	t_list	*list;
+
 	while (true)
 	{
 		*user_input = readline("minishell:~$ ");
