@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 17:25:54 by atyurina          #+#    #+#             */
-/*   Updated: 2024/05/09 18:28:34 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/09 20:47:54 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,9 @@ void	now_execute(t_data *vars, t_list *list, char ***env)
 		free_list_pipes_env(vars, list, env);
 		exit (return_builtin);
 	}
+	printf("before access vars->path = %s\n", vars->path);
 	checking_access(vars, list, *env);
+	printf("after access vars->path = %s\n", vars->path);
 	if_path_null(vars, list, env);
 	exec = ft_executable(list->cmd, list->argv);
 	if (execve(vars->path, exec, *env) == -1)

@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 13:08:26 by atyurina          #+#    #+#             */
-/*   Updated: 2024/05/07 12:52:10 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/09 20:00:08 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ int	ft_exit(t_list *list, char ***env)
 		free_dup_env(*env);
 		free_list(&list);
 		ft_putstr_fd("exit\nminishell: exit: too many arguments\n", 2);
-		exit_val = 2;
-		exit (2);
+		exit_val = 1;
+		exit (1);
 	}
 	if (list->argv != NULL && list->argv[0] == NULL)
 		ft_putstr_fd("exit\n", STDOUT_FILENO);
