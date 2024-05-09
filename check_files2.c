@@ -22,7 +22,10 @@ int	check_in_files_null(t_list *list, t_data *vars)
 	while (in_n != 0 && list->inf != NULL)
 	{
 		if (open_inf_null(list, vars) == 1)
+		{
+			list->inf = copy;
 			return (1);
+		}
 		if (in_n - 1 != 0)
 			close(vars->in_file);
 		in_n--;
