@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 17:25:54 by atyurina          #+#    #+#             */
-/*   Updated: 2024/05/07 19:57:30 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/09 17:40:59 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,16 +61,17 @@ char	**ft_executable(char *cmd, char **argv)
 		len++;
 	exec = (char **)ft_malloc((len + 2) * sizeof(char *));
 	exec[0] = ft_strdup_ex(cmd);
+	free(cmd);
 	while (argv != NULL && argv[j] != NULL)
 	{
 		exec[i] = ft_strdup_ex(argv[j]);
 		i++;
 		j++;
+		free(argv[j]);
 	}
 	exec[i] = NULL;
 	return (exec);
 }
-void	freeing_main(t_list *list);
 
 // 84 line: чистим же среду при форках? т.к. это child, чтобы не было ликов
 void	now_execute(t_data *vars, t_list *list, char ***env)
@@ -78,6 +79,14 @@ void	now_execute(t_data *vars, t_list *list, char ***env)
 	int		return_builtin;
 	char	**exec;
 
+	if (list->cmd == NULL)
+	{
+		ft_putstr_fd("ya zdes\n", 2);
+		free_pipes(vars);
+		free_list(&list);
+		free_dup_env(*env);
+		exit (1);
+	}
 	return_builtin = builtin(list->cmd, list, env);
 	if (return_builtin != 1042)
 	{

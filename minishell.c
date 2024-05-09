@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 18:30:52 by rtavabil          #+#    #+#             */
-/*   Updated: 2024/05/08 19:06:52 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/09 17:08:22 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,9 @@ t_list	*input(char *user_input, char **env_copy, int *exit_code)
 }
 
 void	prompt(char **user_input, char ***env_copy, \
-				t_list **list, int *exit_status)
+ int *exit_status)
 {
+	t_list	*list;
 	while (true)
 	{
 		*user_input = readline("minishell:~$ ");
@@ -69,11 +70,11 @@ void	prompt(char **user_input, char ***env_copy, \
 		if (!ft_strcmp(*user_input, "") || is_empty_str(*user_input))
 			continue ;
 		add_history(*user_input);
-		*list = input(*user_input, *env_copy, exit_status);
+		list = input(*user_input, *env_copy, exit_status);
 		if (list == NULL)
 			continue ;
-		*exit_status = execute(*list, env_copy);
-		free_list(list);
+		*exit_status = execute(list, env_copy);
+		free_list(&list);
 	}
 }
 
@@ -81,14 +82,42 @@ int	main(int argc, char **argv, char **env)
 {
 	char	*user_input;
 	char	**env_copy;
-	t_list	*list;
 	int		exit_status;
 
 	init_signals();
 	env_copy = duplicate_env(env);
 	exit_status = 0;
-	prompt(&user_input, &env_copy, &list, &exit_status);
+	prompt(&user_input, &env_copy, &exit_status);
 	free(user_input);
 	free_dup_env(env_copy);
 	rl_clear_history();
 }
+
+	// char	*user_input;
+	// char	**env_copy;
+	// t_list	*list;
+	// int		exit_status;
+
+	// init_signals();
+	// env_copy = duplicate_env(env);
+	// exit_status = 0;
+	// while (true)
+	// {
+	// 	user_input = readline("minishell:~$ ");
+	// 	if (user_input == NULL)
+	// 	{
+	// 		ft_putstr_fd("exit\n", STDOUT_FILENO);
+	// 		break;
+	// 	}
+	// 	if (!ft_strcmp(user_input, "") || is_empty_str(user_input))
+	// 		continue;
+	// 	add_history(user_input);
+	// 	list = input(user_input, env_copy, &exit_status);
+	// 	if (list == NULL)
+	// 		continue ;
+	// 	exit_status = execute(list, &env_copy);
+	// 	free_list(&list);
+	// }
+	// free(user_input);
+	// free_dup_env(env_copy);
+	// rl_clear_history();
