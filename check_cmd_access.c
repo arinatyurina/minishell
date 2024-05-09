@@ -27,9 +27,7 @@ void	check_path(t_data *vars, t_list *list, char **envp)
 	}
 	if (envp[i] == NULL)
 	{
-		printf("HERE!!!!!!aaaaa\n");
 		vars->path = NULL;
-		printf("vars->path in check_path = %s", vars->path);
 		return ;
 	}
 	vars->paths = ft_split_ex(envp[i] + 5, ':');
@@ -37,7 +35,6 @@ void	check_path(t_data *vars, t_list *list, char **envp)
 	while (vars->paths[j] != NULL)
 	{
 		path = ft_strjoin_three(vars->paths[j], '/', list->cmd);
-		printf("path = %s\n", path);
 		if (access(path, X_OK) == -1)
 		{
 			j++;
@@ -49,10 +46,7 @@ void	check_path(t_data *vars, t_list *list, char **envp)
 			return ;
 		}
 	}
-	printf("3\n");
-	printf("vars->path in check_path at the end before = %s\n", vars->path);
 	vars->path = NULL;
-	printf("vars->path in check_path at the end after = %s\n", vars->path);
 	return ;
 }
 
@@ -82,13 +76,17 @@ void	checking_access(t_data *vars, t_list *list, char **env)
 	}
 	else
 	{
+		vars->paths = NULL;
 		check_path(vars, list, env);
-		while (vars->paths != NULL && vars->paths[i] != NULL)
-		{
-			free(vars->paths[i]);
-			i++;
-		}
-		free(vars->paths);
+		if (vars->paths != NULL)
+			{
+			while (vars->paths != NULL && vars->paths[i] != NULL)
+			{
+				free(vars->paths[i]);
+				i++;
+			}
+			free(vars->paths);
+			}
 	}
 	return ;
 }

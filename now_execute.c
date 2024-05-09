@@ -96,9 +96,7 @@ void	now_execute(t_data *vars, t_list *list, char ***env)
 		free_list_pipes_env(vars, list, env);
 		exit (return_builtin);
 	}
-	printf("before access vars->path = %s\n", vars->path);
 	checking_access(vars, list, *env);
-	printf("after access vars->path = %s\n", vars->path);
 	if_path_null(vars, list, env);
 	exec = ft_executable(list->cmd, list->argv);
 	if (execve(vars->path, exec, *env) == -1)
