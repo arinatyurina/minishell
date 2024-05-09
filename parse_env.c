@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 18:08:43 by rtavabil          #+#    #+#             */
-/*   Updated: 2024/05/08 19:43:40 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/09 19:43:28 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ char	**realloc_tokens(char **tokens, int index, char *value)
 char	*get_env_parse(char *word, char **env, int *exit_code)
 {
 	char	*value;
-	char	*env_word;
 
 	value = NULL;
 	if (env != NULL)

@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 17:33:59 by atyurina          #+#    #+#             */
-/*   Updated: 2024/05/03 17:09:16 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/09 19:42:35 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	hd_sigint_handler(int s)
 {
+	(void)s;
 	printf("\n");
 	exit (142);
 }
@@ -82,7 +83,6 @@ int	execute_hd(t_list *list, t_data *vars)
 int	handle_heredoc(t_list *list, t_data *vars)
 {
 	t_list	*copy;
-	int		i;
 	int		flag;
 
 	flag = 0;

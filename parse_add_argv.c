@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 19:19:02 by rtavabil          #+#    #+#             */
-/*   Updated: 2024/05/08 19:36:18 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/09 19:45:15 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ void	add_existing_argv(t_list **list, char *token)
 
 void	add_argv(t_list **list, char *token)
 {
-	int		len;
-	char	**copy_argv;
 	char	**new_argv;
 
 	if ((*list)->argv)

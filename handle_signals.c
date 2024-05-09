@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_signals.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atyurina <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 11:59:10 by atyurina          #+#    #+#             */
-/*   Updated: 2024/05/02 11:59:11 by atyurina         ###   ########.fr       */
+/*   Updated: 2024/05/09 19:45:43 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void	waiting_sig(int signal)
 		ft_putstr_fd("Quit (core dumped)\n", STDOUT_FILENO);
 }
 
-int	waiting(t_list *list, t_data *vars)
+int	waiting(t_data *vars)
 {
 	int	wstatus;
 

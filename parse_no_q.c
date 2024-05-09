@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:17:51 by rtavabil          #+#    #+#             */
-/*   Updated: 2024/05/09 13:47:42 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/09 19:45:03 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*parse_no_q(char *str, char **env, int *exit_code)
 	res = ft_split_str(str);
 	res = replace_env(res, env, exit_code);
 	num = get_len_tokens(res);
-	final = merge_tokens(num, res);
+	final = merge_tokens(res);
 	free_double_array(res);
 	return (final);
 }

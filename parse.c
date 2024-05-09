@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 18:57:12 by rtavabil          #+#    #+#             */
-/*   Updated: 2024/05/09 19:01:32 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/09 19:39:28 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@ char	*parse_single(char *str)
 	return (new);
 }
 
-void	parse_string(t_list **list, char *user_input, \
-						char **tokens, int *exit_code)
+void	parse_string(t_list **list, char **tokens, int *exit_code)
 {
 	char	*str;
 
@@ -80,7 +79,7 @@ t_list	*parsing(t_list *list, char ***tokens, char **env_copy, int *exit_code)
 	return (current);
 }
 
-t_list	*parse(char *user_input, char **tokens, char **env_copy, int *exit_code)
+t_list	*parse(char **tokens, char **env_copy, int *exit_code)
 {
 	t_list	*list;
 	t_list	*current;
@@ -101,36 +100,9 @@ t_list	*parse(char *user_input, char **tokens, char **env_copy, int *exit_code)
 			}
 		}
 		else
-			parse_string(&current, user_input, tokens, exit_code);
+			parse_string(&current, tokens, exit_code);
 		tokens++;
 	}
 	set_id_list(&list);
 	return (list);
 }
-
-		// if (!ft_strcmp(*tokens, ">") || !ft_strcmp(*tokens, "<") || \
-		// 	!ft_strcmp(*tokens, ">>") || !ft_strcmp(*tokens, "<<"))
-		// 	{
-		// 		parse_red(tokens, &current, exit_code);
-		// 		if (current == NULL)
-		// 			return (NULL);
-		// 		tokens++;
-		// 	}
-		// {
-		// 	parse_red(tokens, &current, exit_code);
-		// 	if (current == NULL)
-		// 		return (NULL);
-		// 	tokens++;
-		// }
-		// else if (!ft_strcmp(*tokens, "|"))
-		// {
-		// 	current = parse_pipe(&current, tokens + 1, env_copy, exit_code);
-		// 	if (current == NULL)
-		// 	{
-		// 		free_list(&list);
-		// 		return (NULL);
-		// 	}
-		// }
-		// else
-		// 	parse_string(&current, user_input, tokens, exit_code);
-		// tokens++;

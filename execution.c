@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 12:51:44 by atyurina          #+#    #+#             */
-/*   Updated: 2024/05/09 17:25:00 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/09 19:49:16 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	execute(t_list *list, char ***env)
 	vars.stdout_og = dup(STDOUT_FILENO);
 	if (handle_heredoc(list, &vars) == 1)
 	{
-		unlink_heredocs(list, &vars);
+		unlink_heredocs(list);
 		return (130);
 	}
 	if (list->cmd == NULL && list->next == NULL)
@@ -93,8 +93,8 @@ int	execute(t_list *list, char ***env)
 	else
 	{
 		case_with_pipes(list, &vars, *env);
-		wstatus = waiting(list, &vars);
+		wstatus = waiting(&vars);
 	}
-	unlink_heredocs(list, &vars);
+	unlink_heredocs(list);
 	return (wstatus);
 }

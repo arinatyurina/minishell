@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 18:30:52 by rtavabil          #+#    #+#             */
-/*   Updated: 2024/05/09 17:08:22 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/09 19:45:42 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_list	*input(char *user_input, char **env_copy, int *exit_code)
 	}
 	tokens = get_tokens(user_input);
 	tokens = preparse(user_input, tokens, env_copy, exit_code);
-	list = parse(user_input, tokens, env_copy, exit_code);
+	list = parse(tokens, env_copy, exit_code);
 	free_double_array(tokens);
 	if (list == NULL)
 		return (NULL);
@@ -84,6 +84,8 @@ int	main(int argc, char **argv, char **env)
 	char	**env_copy;
 	int		exit_status;
 
+	argc = 0;
+	argv = NULL;
 	init_signals();
 	env_copy = duplicate_env(env);
 	exit_status = 0;

@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 16:54:27 by rtavabil          #+#    #+#             */
-/*   Updated: 2024/05/08 19:10:13 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/09 19:37:17 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ char	**split_pipe(char *s, int *i, char **res)
 
 char	**split_exp(char *s, int *i, char **res)
 {
-	int		end;
 	int		j;
 
 	j = 1;

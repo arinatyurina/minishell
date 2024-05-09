@@ -6,7 +6,7 @@
 #    By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/28 13:49:25 by rtavabil          #+#    #+#              #
-#    Updated: 2024/05/09 13:43:45 by rtavabil         ###   ########.fr        #
+#    Updated: 2024/05/09 19:48:33 by rtavabil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ SRC := tokens.c token_utils.c token_utils2.c \
 		strings2.c check_files2.c
 OBJ := $(SRC:%.c=%.o)
 
-CC := cc -g
+CC := cc
 CFLAGS := -Wall -Wextra -Werror
 
 OBJ_PATH := obj/
@@ -38,10 +38,10 @@ all: $(NAME)
 
 $(OBJ_PATH)%.o: %.c
 	@mkdir -p $(OBJ_PATH)
-	@$(CC) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJS)
-	@$(CC) -o $(NAME) $(OBJS) -lreadline
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -lreadline
 
 clean:
 	@rm -rf $(OBJ_PATH) 

@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 13:23:44 by rtavabil          #+#    #+#             */
-/*   Updated: 2024/05/09 19:02:52 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/09 19:44:54 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ typedef struct s_outf
 }		t_outf;
 
 // list structure:
-typedef struct s_list	t_list;
+typedef struct s_list		t_list;
 typedef struct s_list
 {
 	int				list_id;
@@ -90,13 +90,13 @@ void	heredoc_err(t_data *vars, t_list *list);
 void	ctrl_d_hd(t_list *list);
 int		hd(t_list *list, int *fd);
 void	here_doc(t_data *vars, t_list *list, char *name);
-void	unlink_heredocs(t_list *list, t_data *vars);
+void	unlink_heredocs(t_list *list);
 
 //signals:
 void	signals_to_default(void);
 void	sigint_handler(int sig);
 void	init_signals(void);
-int		waiting(t_list *list, t_data *vars);
+int		waiting(t_data *vars);
 
 //get_next_line:
 int		get_next_line(int fd, char **line, char **buffer);
@@ -239,9 +239,8 @@ t_outf	*ft_lstoutf(t_outf *outf);
 void	add_last_outf(t_outf **head, t_outf *outf);
 
 //token expansions
-t_list	*parse(char *user_input, char **tokens, \
-				char **env_copy, int *exit_code);
-void	parse_string(t_list **list, char *user_input, \
+t_list	*parse(char **tokens, char **env_copy, int *exit_code);
+void	parse_string(t_list **list, \
 					char **tokens, int *exit_code);
 char	*parse_no_q(char *str, char **env, int *exit_code);
 void	parse_exp(t_list **list, char **tokens, \
@@ -266,7 +265,7 @@ char	*remove_quotes(char *str);
 char	**ft_split_str(char *s); // for double quotes, to expand $ signs
 int		get_num_tokens(char **tokens);
 int		get_len_tokens(char	**tokens);
-char	*merge_tokens(int len, char **tokens);
+char	*merge_tokens(char **tokens);
 void	free_double_array(char **array);
 char	*parse_double(char *str, char **env, int *exit_code);
 char	*parse_single(char *str);

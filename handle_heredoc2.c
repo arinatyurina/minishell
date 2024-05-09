@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_heredoc2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atyurina <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 15:10:14 by atyurina          #+#    #+#             */
-/*   Updated: 2024/05/07 15:10:16 by atyurina         ###   ########.fr       */
+/*   Updated: 2024/05/09 19:43:10 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ int	hd(t_list *list, int *fd)
 void	here_doc(t_data *vars, t_list *list, char *name)
 {
 	int			fd;
-	char		*line;
 	int			ret;
 
 	fd = open(name, O_WRONLY | O_CREAT | O_APPEND, 0644);
@@ -72,12 +71,11 @@ void	here_doc(t_data *vars, t_list *list, char *name)
 	exit(0);
 }
 
-void	unlink_heredocs(t_list *list, t_data *vars)
+void	unlink_heredocs(t_list *list)
 {
 	int		in_n;
 	t_inf	*copy;
 	int		i;
-	char	*name;
 
 	copy = list->inf;
 	in_n = ft_infsize(list->inf);
