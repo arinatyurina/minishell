@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 18:57:12 by rtavabil          #+#    #+#             */
-/*   Updated: 2024/05/09 17:51:34 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/09 19:01:32 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ t_list	*parse(char *user_input, char **tokens, char **env_copy, int *exit_code)
 	t_list	*list;
 	t_list	*current;
 
-	list = init_list(env_copy);
+	list = init_list(env_copy, NULL);
 	current = list;
 	while (*tokens)
 	{

@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 13:23:44 by rtavabil          #+#    #+#             */
-/*   Updated: 2024/05/09 13:44:49 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/09 19:02:52 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct s_outf
 }		t_outf;
 
 // list structure:
+typedef struct s_list	t_list;
 typedef struct s_list
 {
 	int				list_id;
@@ -71,6 +72,7 @@ typedef struct s_list
 	t_outf			*outf;
 	struct s_list	*next;
 	int				hd_nbr;
+	t_list			*head;
 }		t_list;
 
 typedef struct sigaction	t_sigaction;
@@ -226,7 +228,7 @@ int		ft_strlcpy(char *dst, char *src, int size);
 int		is_alphanum(char c);
 
 //init structs
-t_list	*init_list(char **env_copy);
+t_list	*init_list(char **env_copy, t_list *head);
 t_list	*ft_lstlast(t_list *lst);
 void	add_last_list(t_list **head, t_list *last);
 t_inf	*init_inf(char	*file, char flag);

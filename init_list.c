@@ -6,13 +6,13 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 16:14:01 by rtavabil          #+#    #+#             */
-/*   Updated: 2024/05/08 19:06:42 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/09 19:06:21 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_list	*init_list(char **env_copy)
+t_list	*init_list(char **env_copy, t_list *head)
 {
 	t_list	*list;
 
@@ -27,6 +27,10 @@ t_list	*init_list(char **env_copy)
 	list->outf = NULL;
 	list->next = NULL;
 	list->hd_nbr = 0;
+	if (head == NULL)
+		list->head = list;
+	else
+		list->head = head;
 	return (list);
 }
 
@@ -76,6 +80,8 @@ void	free_list(t_list **list)
 
 	if (!list)
 		return ;
+	if ((*list)->list_id != 1)
+		*list = (*list)->head;
 	while (*list)
 	{
 		node = (*list)->next;

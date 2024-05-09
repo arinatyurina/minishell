@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 17:25:54 by atyurina          #+#    #+#             */
-/*   Updated: 2024/05/09 17:40:59 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/09 18:28:34 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,13 @@ char	**ft_executable(char *cmd, char **argv)
 		len++;
 	exec = (char **)ft_malloc((len + 2) * sizeof(char *));
 	exec[0] = ft_strdup_ex(cmd);
-	free(cmd);
+	//free(cmd);
 	while (argv != NULL && argv[j] != NULL)
 	{
 		exec[i] = ft_strdup_ex(argv[j]);
 		i++;
 		j++;
-		free(argv[j]);
+	//	free(argv[j]);
 	}
 	exec[i] = NULL;
 	return (exec);
