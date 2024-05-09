@@ -130,9 +130,9 @@ void	closing_pipes(t_data *vars);
 
 //check_files:
 void	check_in_files(t_list *list, t_data *vars);
-void	open_inf(t_list *list, t_data *vars);
+void	open_inf(t_list *list, t_data *vars, t_inf *copy);
 void	check_out_files(t_list *list, t_data *vars);
-void	open_outf(t_list *list, t_data *vars);
+void	open_outf(t_list *list, t_data *vars, t_outf *copy);
 int		check_in_files_null(t_list *list, t_data *vars);
 int		open_inf_null(t_list *list, t_data *vars);
 
