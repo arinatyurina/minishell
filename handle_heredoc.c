@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 17:33:59 by atyurina          #+#    #+#             */
-/*   Updated: 2024/05/09 19:42:35 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/10 11:46:12 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,25 +25,19 @@ void	hd_child(t_list *list, t_data *vars)
 	here_doc(vars, list, list->inf->hd_name);
 }
 
-int	name_heredoc(t_list *list, t_data *vars, int i)
+int	name_heredoc(t_list *list, t_data *vars, int i, char ***env)
 {
-	char	*name_tmp;
-	char	*l_id;
-	char	*i_id;
 	int		wstatus;
 
-	l_id = ft_itoa(list->list_id);
-	i_id = ft_itoa(i);
-	name_tmp = ft_strjoin(".heredoc_tmp_", l_id);
-	list->inf->hd_name = ft_strjoin(name_tmp, i_id);
-	free(l_id);
-	free(i_id);
-	free(name_tmp);
+	list->inf->hd_name = set_hd_name(list, i);
 	vars->id = fork();
 	if (vars->id == -1)
 		ft_putstr_fd("Error while forking", 2);
 	if (vars->id == 0)
+	{
+		free_dup_env(*env);
 		hd_child(list, vars);
+	}
 	signal(SIGINT, SIG_IGN);
 	waitpid(vars->id, &wstatus, 0);
 	if (WIFEXITED(wstatus))
@@ -52,7 +46,7 @@ int	name_heredoc(t_list *list, t_data *vars, int i)
 	return (wstatus);
 }
 
-int	execute_hd(t_list *list, t_data *vars)
+int	execute_hd(t_list *list, t_data *vars, char ***env)
 {
 	int		in_n;
 	t_inf	*copy;
@@ -66,7 +60,7 @@ int	execute_hd(t_list *list, t_data *vars)
 	{
 		if (list->inf->flag == 'h')
 		{
-			wstatus = name_heredoc(list, vars, i);
+			wstatus = name_heredoc(list, vars, i, env);
 			if (wstatus == 142)
 				break ;
 			i++;
@@ -80,7 +74,7 @@ int	execute_hd(t_list *list, t_data *vars)
 	return (0);
 }
 
-int	handle_heredoc(t_list *list, t_data *vars)
+int	handle_heredoc(t_list *list, t_data *vars, char ***env)
 {
 	t_list	*copy;
 	int		flag;
@@ -92,7 +86,7 @@ int	handle_heredoc(t_list *list, t_data *vars)
 		count_hd(list);
 		if (list->hd_nbr != 0)
 		{
-			if (execute_hd(list, vars) == 1)
+			if (execute_hd(list, vars, env) == 1)
 			{
 				flag = 1;
 				break ;

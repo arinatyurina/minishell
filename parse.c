@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 18:57:12 by rtavabil          #+#    #+#             */
-/*   Updated: 2024/05/09 19:39:28 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/10 11:13:15 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ t_list	*parse(char **tokens, char **env_copy, int *exit_code)
 			!ft_strcmp(*tokens, ">>") || !ft_strcmp(*tokens, "<<") || \
 			!ft_strcmp(*tokens, "|"))
 		{
-			current = parsing(list, &tokens, env_copy, exit_code);
+			current = parsing(current, &tokens, env_copy, exit_code);
 			if (current == NULL)
 			{
 				free_list(&list);

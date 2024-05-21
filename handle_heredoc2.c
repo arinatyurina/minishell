@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 15:10:14 by atyurina          #+#    #+#             */
-/*   Updated: 2024/05/09 19:43:10 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/10 11:36:34 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,27 +68,28 @@ void	here_doc(t_data *vars, t_list *list, char *name)
 	while (ret == 1)
 		ret = hd(list, &fd);
 	close(fd);
+	free_list(&list);
 	exit(0);
 }
 
 void	unlink_heredocs(t_list *list)
 {
-	int		in_n;
+	t_list	*list_head;
 	t_inf	*copy;
-	int		i;
 
-	copy = list->inf;
-	in_n = ft_infsize(list->inf);
-	i = 1;
-	while (in_n != 0 && list->inf != NULL)
+	list_head = list->head;
+	list = list->head;
+	while (list != NULL)
 	{
-		if (list->inf->flag == 'h' && list->inf->hd_name != NULL)
+		copy = list->inf;
+		while (list->inf != NULL)
 		{
-			unlink(list->inf->hd_name);
-			i++;
+			if (list->inf->flag == 'h' && list->inf->hd_name != NULL)
+				unlink(list->inf->hd_name);
+			list->inf = list->inf->next;
 		}
-		in_n--;
-		list->inf = list->inf->next;
+		list->inf = copy;
+		list = list->next;
 	}
-	list->inf = copy;
+	list = list_head;
 }

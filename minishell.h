@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 13:23:44 by rtavabil          #+#    #+#             */
-/*   Updated: 2024/05/09 20:24:17 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/10 11:47:49 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,9 @@ typedef struct sigaction	t_sigaction;
 //handle_heredoc:
 void	hd_sigint_handler(int s);
 void	hd_child(t_list *list, t_data *vars);
-int		name_heredoc(t_list *list, t_data *vars, int i);
-int		execute_hd(t_list *list, t_data *vars);
-int		handle_heredoc(t_list *list, t_data *vars);
+int		name_heredoc(t_list *list, t_data *vars, int i, char ***env);
+int		execute_hd(t_list *list, t_data *vars, char ***env);
+int		handle_heredoc(t_list *list, t_data *vars, char ***env);
 void	count_hd(t_list *list);
 
 //handle_heredoc2
@@ -91,6 +91,7 @@ void	ctrl_d_hd(t_list *list);
 int		hd(t_list *list, int *fd);
 void	here_doc(t_data *vars, t_list *list, char *name);
 void	unlink_heredocs(t_list *list);
+char	*set_hd_name(t_list *list, int i);
 
 //signals:
 void	signals_to_default(void);

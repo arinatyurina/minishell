@@ -6,7 +6,7 @@
 /*   By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 12:51:44 by atyurina          #+#    #+#             */
-/*   Updated: 2024/05/09 19:49:16 by rtavabil         ###   ########.fr       */
+/*   Updated: 2024/05/10 11:34:50 by rtavabil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	execute(t_list *list, char ***env)
 	vars.lists_nbr = ft_lstsize(list);
 	vars.stdin_og = dup(STDIN_FILENO);
 	vars.stdout_og = dup(STDOUT_FILENO);
-	if (handle_heredoc(list, &vars) == 1)
+	if (handle_heredoc(list, &vars, env) == 1)
 	{
 		unlink_heredocs(list);
 		return (130);

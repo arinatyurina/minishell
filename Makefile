@@ -6,7 +6,7 @@
 #    By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/28 13:49:25 by rtavabil          #+#    #+#              #
-#    Updated: 2024/05/09 19:48:33 by rtavabil         ###   ########.fr        #
+#    Updated: 2024/05/10 11:48:12 by rtavabil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,14 +21,14 @@ SRC := tokens.c token_utils.c token_utils2.c \
 		execute_utils.c execute_utils2.c execute_utils3.c execute_utils4.c execute_utils5.c \
 		cd_builtin.c check_files.c \
 		env_builtin.c exit_builtin.c pipes_managing.c \
-		handle_signals.c handle_heredoc.c handle_heredoc2.c \
+		handle_signals.c handle_heredoc.c handle_heredoc2.c handle_heredoc3.c \
 		parse_red.c parse_utils.c token_utils4.c \
 		parse_env.c parse_double.c parse_double_utils.c \
 		parse_no_q.c preparse.c parse_pipe.c parse_add_argv.c \
 		strings2.c check_files2.c
 OBJ := $(SRC:%.c=%.o)
 
-CC := cc
+CC := cc -g3
 CFLAGS := -Wall -Wextra -Werror
 
 OBJ_PATH := obj/
