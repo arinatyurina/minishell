@@ -7,6 +7,8 @@ This group project was divided into two main parts: the parser and the executor.
 The parser is responsible for interpreting and structuring user input, while the executor manages the execution of commands, including handling pipes and redirections.
 Our implementation is based on the behavior of Bash, ensuring a user experience that is both familiar and functional.
 
+![minishell](/minishell.gif)
+
 ## Setup
 
 1. Clone the repository:
