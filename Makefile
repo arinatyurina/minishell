@@ -6,49 +6,61 @@
 #    By: rtavabil <rtavabil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/28 13:49:25 by rtavabil          #+#    #+#              #
-#    Updated: 2024/05/10 11:48:12 by rtavabil         ###   ########.fr        #
+#    Updated: 2024/08/08 14:57:54 by rtavabil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME := minishell
+NAME 		= minishell
+CC 			= cc -g3
+CFLAGS 		= -Wall -Wextra -Werror
 
-SRC := tokens.c token_utils.c token_utils2.c \
-		token_utils3.c strings.c minishell.c \
-		init_list.c init_inf.c init_outf.c\
-		parse.c built_in.c check_cmd_access.c \
-		echo_builtin.c execution.c export_builtin.c \
-		now_execute.c pwd_builtin.c unset_builtin.c \
-		execute_utils.c execute_utils2.c execute_utils3.c execute_utils4.c execute_utils5.c \
-		cd_builtin.c check_files.c \
-		env_builtin.c exit_builtin.c pipes_managing.c \
-		handle_signals.c handle_heredoc.c handle_heredoc2.c handle_heredoc3.c \
-		parse_red.c parse_utils.c token_utils4.c \
-		parse_env.c parse_double.c parse_double_utils.c \
-		parse_no_q.c preparse.c parse_pipe.c parse_add_argv.c \
-		strings2.c check_files2.c
-OBJ := $(SRC:%.c=%.o)
+MAIN_SRCS 	= src/minishell.c \
+src/parser/check_cmd_access.c src/parser/check_files.c src/parser/check_files2.c \
+src/parser/init_inf.c src/parser/init_list.c src/parser/init_outf.c \
+src/parser/parse_add_argv.c src/parser/parse_double_utils.c src/parser/parse_double.c \
+src/parser/parse_env.c src/parser/parse_no_q.c src/parser/parse_pipe.c \
+src/parser/parse_red.c src/parser/parse_utils.c src/parser/parse.c \
+src/parser/preparse.c src/parser/strings.c src/parser/strings2.c \
+src/parser/token_utils.c src/parser/token_utils2.c src/parser/token_utils3.c \
+src/parser/token_utils4.c src/parser/tokens.c \
+src/executor/builtin/built_in.c src/executor/builtin/cd_builtin.c src/executor/builtin/echo_builtin.c \
+src/executor/builtin/env_builtin.c src/executor/builtin/exit_builtin.c src/executor/builtin/export_builtin.c \
+src/executor/builtin/pwd_builtin.c src/executor/builtin/unset_builtin.c \
+src/executor/execute_utils.c src/executor/execute_utils2.c src/executor/execute_utils3.c \
+src/executor/execute_utils4.c src/executor/execute_utils5.c src/executor/execution.c \
+src/executor/handle_heredoc.c src/executor/handle_heredoc2.c \
+src/executor/handle_heredoc3.c src/executor/handle_signals.c src/executor/now_execute.c \
+src/executor/pipes_managing.c
 
-CC := cc -g3
-CFLAGS := -Wall -Wextra -Werror
 
-OBJ_PATH := obj/
-OBJS := $(addprefix $(OBJ_PATH), $(OBJ))
+MAIN_OBJS = $(MAIN_SRCS:%.c=$(OBJ_F)%.o)
+
+
+OBJ_F   = ./objs/
+RM      = rm -rf
+
 
 all: $(NAME)
 
-$(OBJ_PATH)%.o: %.c
-	@mkdir -p $(OBJ_PATH)
+$(NAME): $(MAIN_OBJS)
+	@$(CC) $(CFLAGS) -o $(NAME) $(MAIN_OBJS) -lreadline
+	@printf "$(GREEN)==> Compiled ✅\n\n$(RESET)"
+
+
+$(OBJ_F)%.o: %.c
+	@printf "\033[0;33mGenerating objects... %-33.33s\r" $@
+	@mkdir -p $(@D)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
-$(NAME): $(OBJS)
-	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -lreadline
-
-clean:
-	@rm -rf $(OBJ_PATH) 
+clean: 
+	$(RM) $(OBJ_F)*
+	rm -d $(OBJ_F)
+	@printf "$(GREEN)==>Cleaned ✅\n\n$(RESET)"
 
 fclean: clean
-	@rm -f $(NAME)
+	$(RM) $(NAME)
+	@printf "$(GREEN)==> Fully cleaned ✅\n\n$(RESET)"
 
 re: fclean all
 
-.PHONY: all re clean fclean
+.PHONY: all clean fclean re libft bonus
